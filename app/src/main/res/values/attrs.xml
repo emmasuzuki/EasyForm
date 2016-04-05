@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="EasyForm">
+        <attr name="submitButton" format="reference"/>
+    </declare-styleable>
+
+    <declare-styleable name="EasyFormEditText">
+        <attr name="errorType" format="enum">
+            <enum name="empty" value="0"/>
+            <enum name="pattern" value="1"/>
+            <enum name="value" value="2"/>
+            <enum name="chars" value="3"/>
+        </attr>
+        <attr name="errorMessage" format="string|reference"/>
+        <attr name="regexPattern" format="string|reference"/>
+        <attr name="minValue" format="integer"/>
+        <attr name="maxValue" format="integer"/>
+        <attr name="minChars" format="integer"/>
+        <attr name="maxChars" format="integer"/>
+
+        <attr name="textSize" format="dimension"/>
+        <attr name="textColor" format="color|reference"/>
+    </declare-styleable>
+</resources>
