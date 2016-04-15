@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.emmasuzuki.easyform;
+package com.emmasuzuki.easyformsample;
 
 import android.app.Activity;
 import android.support.test.InstrumentationRegistry;
@@ -41,19 +41,19 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.emmasuzuki.easyform.ErrorTextMatcher.editTextIn;
-import static com.emmasuzuki.easyform.ErrorTextMatcher.hasErrorText;
-import static com.emmasuzuki.easyform.ErrorTextMatcher.hasNoErrorText;
+import static com.emmasuzuki.easyformsample.ErrorTextMatcher.editTextIn;
+import static com.emmasuzuki.easyformsample.ErrorTextMatcher.hasErrorText;
+import static com.emmasuzuki.easyformsample.ErrorTextMatcher.hasNoErrorText;
 import static org.hamcrest.Matchers.not;
 
 public class TextInputLayoutFormFragmentTest {
 
     private Activity activity;
 
-    private Matcher<View> emptyCheckInputMatcher = withId(R.id.empty_check_input);
-    private Matcher<View> digitCheckInputMatcher = withId(R.id.digit_check_input);
+    private Matcher<View> emptyCheckInputMatcher = withId(com.emmasuzuki.easyform.R.id.empty_check_input);
+    private Matcher<View> digitCheckInputMatcher = withId(com.emmasuzuki.easyform.R.id.digit_check_input);
 
-    private ViewInteraction submitButton = onView(withId(R.id.submit_button));
+    private ViewInteraction submitButton = onView(withId(com.emmasuzuki.easyform.R.id.submit_button));
     private ViewInteraction emptyCheckEditText = onView(editTextIn(emptyCheckInputMatcher));
     private ViewInteraction digitCheckEditText = onView(editTextIn(digitCheckInputMatcher));
 
@@ -63,7 +63,7 @@ public class TextInputLayoutFormFragmentTest {
 
     public void openTextInputLayoutFormFragment() {
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-        onView(withText(activity.getString(R.string.form_2))).perform(click());
+        onView(withText(activity.getString(com.emmasuzuki.easyform.R.string.form_2))).perform(click());
     }
 
     public void testEmptyCheckField(String str, boolean valid) {
@@ -72,7 +72,7 @@ public class TextInputLayoutFormFragmentTest {
         if (valid) {
             onView(emptyCheckInputMatcher).check(matches(hasNoErrorText()));
         } else {
-            onView(emptyCheckInputMatcher).check(matches(hasErrorText(activity.getString(R.string.error_message_empty))));
+            onView(emptyCheckInputMatcher).check(matches(hasErrorText(activity.getString(com.emmasuzuki.easyform.R.string.error_message_empty))));
         }
     }
 
@@ -82,7 +82,7 @@ public class TextInputLayoutFormFragmentTest {
         if (valid) {
             onView(digitCheckInputMatcher).check(matches(hasNoErrorText()));
         } else {
-            onView(digitCheckInputMatcher).check(matches(hasErrorText(activity.getString(R.string.error_message_digit))));
+            onView(digitCheckInputMatcher).check(matches(hasErrorText(activity.getString(com.emmasuzuki.easyform.R.string.error_message_digit))));
         }
     }
 

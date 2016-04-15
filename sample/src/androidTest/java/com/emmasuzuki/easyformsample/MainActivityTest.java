@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.emmasuzuki.easyform;
+package com.emmasuzuki.easyformsample;
 
 import android.support.test.rule.ActivityTestRule;
 

@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.emmasuzuki.easyform;
+package com.emmasuzuki.easyformsample;
 
 import android.app.Activity;
 import android.support.annotation.StringRes;
@@ -42,23 +42,23 @@ import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static com.emmasuzuki.easyform.ErrorTextMatcher.editTextIn;
-import static com.emmasuzuki.easyform.ErrorTextMatcher.hasErrorText;
-import static com.emmasuzuki.easyform.ErrorTextMatcher.hasNoErrorText;
+import static com.emmasuzuki.easyformsample.ErrorTextMatcher.editTextIn;
+import static com.emmasuzuki.easyformsample.ErrorTextMatcher.hasErrorText;
+import static com.emmasuzuki.easyformsample.ErrorTextMatcher.hasNoErrorText;
 import static org.hamcrest.Matchers.not;
 
 public class LongFormFragmentTest {
 
     private Activity activity;
 
-    private Matcher<View> firstNameInputMatcher = withId(R.id.first_name_input);
-    private Matcher<View> lastNameInputMatcher = withId(R.id.last_name_input);
-    private Matcher<View> employeeIdInputMatcher = withId(R.id.employee_id_input);
-    private Matcher<View> accountInputMatcher = withId(R.id.account_name_input);
-    private Matcher<View> passwordInputMatcher = withId(R.id.password_input);
-    private Matcher<View> confirmPasswordInputMatcher = withId(R.id.confirm_password_input);
+    private Matcher<View> firstNameInputMatcher = withId(com.emmasuzuki.easyform.R.id.first_name_input);
+    private Matcher<View> lastNameInputMatcher = withId(com.emmasuzuki.easyform.R.id.last_name_input);
+    private Matcher<View> employeeIdInputMatcher = withId(com.emmasuzuki.easyform.R.id.employee_id_input);
+    private Matcher<View> accountInputMatcher = withId(com.emmasuzuki.easyform.R.id.account_name_input);
+    private Matcher<View> passwordInputMatcher = withId(com.emmasuzuki.easyform.R.id.password_input);
+    private Matcher<View> confirmPasswordInputMatcher = withId(com.emmasuzuki.easyform.R.id.confirm_password_input);
 
-    private ViewInteraction submitButton = onView(withId(R.id.submit_button));
+    private ViewInteraction submitButton = onView(withId(com.emmasuzuki.easyform.R.id.submit_button));
     private ViewInteraction firstNameEditText = onView(editTextIn(firstNameInputMatcher));
     private ViewInteraction lastNameEditText = onView(editTextIn(lastNameInputMatcher));
     private ViewInteraction employeeIdEditText = onView(editTextIn(employeeIdInputMatcher));
@@ -72,37 +72,37 @@ public class LongFormFragmentTest {
 
     public void openLongFormFragment() {
         openActionBarOverflowOrOptionsMenu(InstrumentationRegistry.getTargetContext());
-        onView(withText(activity.getString(R.string.form_3))).perform(click());
+        onView(withText(activity.getString(com.emmasuzuki.easyform.R.string.form_3))).perform(click());
     }
 
     public void testFirstNameField(String str, boolean valid) {
         firstNameEditText.perform(clearText(), typeText(str), closeSoftKeyboard());
-        checkError(firstNameInputMatcher, R.string.error_message_empty, valid);
+        checkError(firstNameInputMatcher, com.emmasuzuki.easyform.R.string.error_message_empty, valid);
     }
 
     public void testLastNameField(String str, boolean valid) {
         lastNameEditText.perform(clearText(), typeText(str), closeSoftKeyboard());
-        checkError(lastNameInputMatcher, R.string.error_message_empty, valid);
+        checkError(lastNameInputMatcher, com.emmasuzuki.easyform.R.string.error_message_empty, valid);
     }
 
     public void testEmployeeIdField(String str, boolean valid) {
         employeeIdEditText.perform(clearText(), typeText(str), closeSoftKeyboard());
-        checkError(employeeIdInputMatcher, R.string.error_message_employee_id, valid);
+        checkError(employeeIdInputMatcher, com.emmasuzuki.easyform.R.string.error_message_employee_id, valid);
     }
 
     public void testAccountField(String str, boolean valid) {
         accountEditText.perform(clearText(), typeText(str), closeSoftKeyboard());
-        checkError(accountInputMatcher, R.string.error_message_account, valid);
+        checkError(accountInputMatcher, com.emmasuzuki.easyform.R.string.error_message_account, valid);
     }
 
     public void testPasswordField(String str, boolean valid) {
         passwordEditText.perform(clearText(), typeText(str), closeSoftKeyboard());
-        checkError(passwordInputMatcher, R.string.error_message_password, valid);
+        checkError(passwordInputMatcher, com.emmasuzuki.easyform.R.string.error_message_password, valid);
     }
 
     public void testConfirmPasswordField(String str, boolean valid) {
         confirmPasswordEditText.perform(clearText(), typeText(str), closeSoftKeyboard());
-        checkError(confirmPasswordInputMatcher, R.string.error_message_password, valid);
+        checkError(confirmPasswordInputMatcher, com.emmasuzuki.easyform.R.string.error_message_password, valid);
     }
 
     public void testSubmitButton(String firstName, String lastName, String employeeId, String account,

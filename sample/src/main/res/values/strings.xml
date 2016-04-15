@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">EasyFormSample</string>
+
+    <string name="form_1">Form 1</string>
+    <string name="form_2">Form 2</string>
+    <string name="form_3">Form 3</string>
+    <string name="submit">Submit</string>
+
+    <string name="empty_check">Empty check</string>
+    <string name="email_check">Email check</string>
+    <string name="digit_check">Digit check</string>
+    <string name="no_check">No check</string>
+
+    <string name="error_message_empty">Please fill this field</string>
+    <string name="error_message_email">Please input valid email</string>
+    <string name="error_message_digit">Please input digit only</string>
+    <string name="error_message_employee_id">Employee ID must be above or equal to 100.</string>
+    <string name="error_message_account">Account should be 6&#8211;12 chars</string>
+    <string name="error_message_password">No special characters are allowed and length must be in 6&#8211;12 chars</string>
+
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="employee_id">Employee ID</string>
+    <string name="account_name">Account Name</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+</resources>
