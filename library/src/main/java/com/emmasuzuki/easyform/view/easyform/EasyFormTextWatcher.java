@@ -53,31 +53,31 @@ public abstract class EasyFormTextWatcher implements TextWatcher {
         this.delegateView = delegateView;
     }
 
-    public void setErrorType(ErrorType errorType) {
+    void setErrorType(ErrorType errorType) {
         this.errorType = errorType;
     }
 
-    public void setRegexPattern(String regexPattern) {
+    void setRegexPattern(String regexPattern) {
         this.regexPattern = regexPattern;
     }
 
-    public void setMinValue(int minValue) {
+    void setMinValue(int minValue) {
         this.minValue = minValue;
     }
 
-    public void setMaxValue(int maxValue) {
+    void setMaxValue(int maxValue) {
         this.maxValue = maxValue;
     }
 
-    public void setMinChars(int minChars) {
+    void setMinChars(int minChars) {
         this.minChars = minChars;
     }
 
-    public void setMaxChars(int maxChars) {
+    void setMaxChars(int maxChars) {
         this.maxChars = maxChars;
     }
 
-    public void setEasyFormTextListener(OnEasyFormTextListener easyFormTextListener) {
+    void setEasyFormTextListener(OnEasyFormTextListener easyFormTextListener) {
         this.easyFormTextListener = easyFormTextListener;
     }
 

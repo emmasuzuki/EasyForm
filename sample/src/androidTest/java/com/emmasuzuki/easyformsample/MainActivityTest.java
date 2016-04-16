@@ -26,8 +26,6 @@ package com.emmasuzuki.easyformsample;
 
 import android.support.test.rule.ActivityTestRule;
 
-import com.emmasuzuki.easyform.app.MainActivity;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

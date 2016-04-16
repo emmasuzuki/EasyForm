@@ -40,10 +40,10 @@ public class EditTextFormFragmentTest {
 
     private Activity activity;
 
-    private ViewInteraction emptyCheckField = onView(withId(com.emmasuzuki.easyform.R.id.empty_check_edittext));
-    private ViewInteraction emailField = onView(withId(com.emmasuzuki.easyform.R.id.email_check_edittext));
-    private ViewInteraction noCheckField = onView(withId(com.emmasuzuki.easyform.R.id.no_check_edittext));
-    private ViewInteraction submitButton = onView(withId(com.emmasuzuki.easyform.R.id.submit_button));
+    private ViewInteraction emptyCheckField = onView(withId(R.id.empty_check_edittext));
+    private ViewInteraction emailField = onView(withId(R.id.email_check_edittext));
+    private ViewInteraction noCheckField = onView(withId(R.id.no_check_edittext));
+    private ViewInteraction submitButton = onView(withId(R.id.submit_button));
 
     public EditTextFormFragmentTest(Activity activity) {
         this.activity = activity;
@@ -55,7 +55,7 @@ public class EditTextFormFragmentTest {
         if (valid) {
             emptyCheckField.check(matches(ErrorTextMatcher.hasNoErrorText()));
         } else {
-            emptyCheckField.check(matches(ErrorTextMatcher.hasErrorText(activity.getString(com.emmasuzuki.easyform.R.string.error_message_empty))));
+            emptyCheckField.check(matches(ErrorTextMatcher.hasErrorText(activity.getString(R.string.error_message_empty))));
         }
     }
 
@@ -65,7 +65,7 @@ public class EditTextFormFragmentTest {
         if (valid) {
             emailField.check(matches(ErrorTextMatcher.hasNoErrorText()));
         } else {
-            emailField.check(matches(ErrorTextMatcher.hasErrorText(activity.getString(com.emmasuzuki.easyform.R.string.error_message_email))));
+            emailField.check(matches(ErrorTextMatcher.hasErrorText(activity.getString(R.string.error_message_email))));
         }
     }
 
