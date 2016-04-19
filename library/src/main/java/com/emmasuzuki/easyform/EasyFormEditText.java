@@ -22,14 +22,12 @@
  * SOFTWARE.
  */
 
-package com.emmasuzuki.easyform.view.easyform;
+package com.emmasuzuki.easyform;
 
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.widget.EditText;
-
-import com.emmasuzuki.easyform.R;
 
 public class EasyFormEditText extends EditText {
 

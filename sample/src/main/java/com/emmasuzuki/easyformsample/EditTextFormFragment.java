@@ -32,7 +32,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.emmasuzuki.easyform.view.easyform.EasyFormEditText;
+import com.emmasuzuki.easyform.EasyFormEditText;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

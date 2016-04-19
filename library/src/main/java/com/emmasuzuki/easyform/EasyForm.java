@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.emmasuzuki.easyform.view.easyform;
+package com.emmasuzuki.easyform;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -32,8 +32,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
-
-import com.emmasuzuki.easyform.R;
 
 public class EasyForm extends RelativeLayout implements EasyFormTextWatcher.OnEasyFormTextListener {
 

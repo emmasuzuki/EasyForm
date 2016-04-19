@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.emmasuzuki.easyform.view.easyform;
+package com.emmasuzuki.easyform;
 
 import android.text.Editable;
 import android.text.TextUtils;

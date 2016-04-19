@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.emmasuzuki.easyform.view.easyform.EasyForm xmlns:android="http://schemas.android.com/apk/res/android"
+<com.emmasuzuki.easyform.EasyForm xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="12dp"
     app:submitButton="@+id/submit_button">
 
-    <com.emmasuzuki.easyform.view.easyform.EasyFormEditText
+    <com.emmasuzuki.easyform.EasyFormEditText
         android:id="@+id/empty_check_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
         app:errorMessage="@string/error_message_empty"
         app:errorType="empty" />
 
-    <com.emmasuzuki.easyform.view.easyform.EasyFormEditText
+    <com.emmasuzuki.easyform.EasyFormEditText
         android:id="@+id/email_check_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,7 +23,7 @@
         app:errorMessage="@string/error_message_email"
         app:errorType="pattern" />
 
-    <com.emmasuzuki.easyform.view.easyform.EasyFormEditText
+    <com.emmasuzuki.easyform.EasyFormEditText
         android:id="@+id/no_check_edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -41,4 +41,4 @@
         android:text="@string/submit"
         android:textColor="@android:color/white" />
 
-</com.emmasuzuki.easyform.view.easyform.EasyForm>
+</com.emmasuzuki.easyform.EasyForm>

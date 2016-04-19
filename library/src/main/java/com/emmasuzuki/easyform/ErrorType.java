@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package com.emmasuzuki.easyform.view.easyform;
+package com.emmasuzuki.easyform;
 
 public enum ErrorType {
     EMPTY,

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.emmasuzuki.easyform.view.easyform.EasyForm xmlns:android="http://schemas.android.com/apk/res/android"
+<com.emmasuzuki.easyform.EasyForm xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <com.emmasuzuki.easyform.view.easyform.EasyTextInputLayout
+        <com.emmasuzuki.easyform.EasyTextInputLayout
             android:id="@+id/first_name_input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -21,7 +21,7 @@
             app:errorMessage="@string/error_message_empty"
             app:errorType="empty" />
 
-        <com.emmasuzuki.easyform.view.easyform.EasyTextInputLayout
+        <com.emmasuzuki.easyform.EasyTextInputLayout
             android:id="@+id/last_name_input"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             app:errorType="empty" />
     </LinearLayout>
 
-    <com.emmasuzuki.easyform.view.easyform.EasyTextInputLayout
+    <com.emmasuzuki.easyform.EasyTextInputLayout
         android:id="@+id/employee_id_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,7 +43,7 @@
         app:errorMessage="@string/error_message_employee_id"
         app:minValue="100" />
 
-    <com.emmasuzuki.easyform.view.easyform.EasyTextInputLayout
+    <com.emmasuzuki.easyform.EasyTextInputLayout
         android:id="@+id/account_name_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
         app:maxChars="12"
         app:minChars="6" />
 
-    <com.emmasuzuki.easyform.view.easyform.EasyTextInputLayout
+    <com.emmasuzuki.easyform.EasyTextInputLayout
         android:id="@+id/password_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
         app:errorMessage="@string/error_message_password"
         app:regexPattern="[a-zA-Z0-9]{6,12}" />
 
-    <com.emmasuzuki.easyform.view.easyform.EasyTextInputLayout
+    <com.emmasuzuki.easyform.EasyTextInputLayout
         android:id="@+id/confirm_password_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,4 +84,4 @@
         android:background="@color/colorAccent"
         android:text="@string/submit"
         android:textColor="@android:color/white" />
-</com.emmasuzuki.easyform.view.easyform.EasyForm>
+</com.emmasuzuki.easyform.EasyForm>
