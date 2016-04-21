@@ -9,12 +9,12 @@ You set error properties and message in xml and EasyForm will show error message
 > This project is still with minimal features. I am very happy to accept any feature requests, bug reports. 
 > Please feel free to open Issues and I will try my best to prioritize it. I really like to ask for any additional feature ideas since a form varies for different product domains and I am bad at see all ascpects of those use cases.
 
-#Installation
+##Installation
 ```
 compile 'com.emmasuzuki:easyform:1.0.0'
 ```
 
-#Example
+##Example
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <com.emmasuzuki.easyform.EasyForm xmlns:android="http://schemas.android.com/apk/res/android"
@@ -51,9 +51,58 @@ compile 'com.emmasuzuki:easyform:1.0.0'
 </com.emmasuzuki.easyform.EasyForm>
 ```
 
-####EasyForm
-EasyForm is extending RelativeLayout, you align any child views with just like you do for RelativeLayout.
+##Custom Views
+###EasyForm
+EasyFrom is a ViewGroup which you wrap all form components inside. EasyForm is extending RelativeLayout, so you align any child views with just like you do for RelativeLayout.
 
-**Properties**
-A submit button can be disable/enable based on field condition.  
-`app:submitButton="@+id/submit_button"` 
+####Properties
+submitButton: A submit button can be disable/enable based on field condition by setting view ID to submitButton property.  
+```
+app:submitButton="@+id/submit_button"
+```
+
+###EasyFormEditText
+EasyFormEditText is a extension of EditText that will apply an error message by built-in `setError()` based on input and validation criteria.
+
+####Properties
+errorMessage: An error message to show when a validation criteria does not match.
+```
+app:errorMessage="This field is required"
+```
+
+errorType: Set empty to make a field required.
+```
+app:errorType="empty"
+```
+
+regexPattern: Set a regex to match against an input. If an input does not match with the regex, an error message will be displayed.
+ex) Allow only digits.
+```
+app:regexPattern="[0-9]+"
+```
+
+minValue: Set a minimum value (inclusive). Currently only supports positive integers.
+ex) Allow value >= 100
+```
+app:minValue="100"
+```
+
+maxValue: Set a maximum value (inclusive). Currently only supports positive integers. You can conbine with minValue.
+ex) Allow 100 <= value <=200
+```
+app:minValue="100"
+app:maxValue="200"
+```
+
+minChars: Set a minimum char length (inclusive).
+ex) Allow input with minimum length of 5.
+```
+app:minChars="5"
+```
+
+maxChars: Set a maximum char length (inclusive). You can conbine with minChars.
+ex) Allow input with a length between 5 to 10.
+```
+app:minChars="5"
+app:maxChars="10"
+```
