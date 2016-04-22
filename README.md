@@ -6,8 +6,7 @@ Inspired by AngularJS's `ng-pattern`, `required` etc., EasyForm makes field vali
 You set error properties and message in xml and EasyForm will show error message when it is needed. Optinally, a button can be disabled when there is an error and enabled when all fields have valid inputs.
 
 ### Disclaimer
-> This project is still with minimal features. I am very happy to accept any feature requests, bug reports. 
-> Please feel free to open Issues and I will try my best to prioritize it. I really like to ask for any additional feature ideas since a form varies for different product domains and I am bad at see all ascpects of those use cases.
+This project is still with minimal features. I am very happy to accept any feature requests, bug reports. Please feel free to open Issues and I will try my best to prioritize it. I really like to ask for any additional feature ideas since a form varies for different product domains and I am bad at see all ascpects of those use cases.
 
 ##Installation
 ```
