@@ -76,18 +76,21 @@ app:errorType="empty"
 ```
 
 regexPattern: Set a regex to match against an input. If an input does not match with the regex, an error message will be displayed.
+
 ex) Allow only digits.
 ```
 app:regexPattern="[0-9]+"
 ```
 
 minValue: Set a minimum value (inclusive). Currently only supports positive integers.
+
 ex) Allow value >= 100
 ```
 app:minValue="100"
 ```
 
 maxValue: Set a maximum value (inclusive). Currently only supports positive integers. You can conbine with minValue.
+
 ex) Allow 100 <= value <=200
 ```
 app:minValue="100"
@@ -95,14 +98,41 @@ app:maxValue="200"
 ```
 
 minChars: Set a minimum char length (inclusive).
+
 ex) Allow input with minimum length of 5.
 ```
 app:minChars="5"
 ```
 
 maxChars: Set a maximum char length (inclusive). You can conbine with minChars.
+
 ex) Allow input with a length between 5 to 10.
 ```
 app:minChars="5"
 app:maxChars="10"
 ```
+
+You can also set these properties in java.
+
+###EasyTextInputLayout
+EasyTextInputLayout extends TextInputLayout. Similar to EasyEditText, this applies an error message by built-in `setError()`. EasyTextInputLayout adds EditText automatically, so unlike you do with TextInputLayout, you do not have to add EditText as a child. 
+
+All properties from EasyEditText can be applied for EasyTextInputLayout and additionally there are a few more that you can set.
+
+####Properties
+android:inputType: EasyTextInputLayout bypass android's inputType to EditText. 
+```
+android:inputType="number"
+```
+
+textSize: Set a textSize for EditText.
+```
+app:textSize="12sp"
+```
+
+textColor: Set a textColor for EditText.
+```
+app:textColor="@color/blue"
+```
+
+More example: <a href="https://github.com/emmasuzuki/EasyForm/tree/master/sample">Sample</a>
