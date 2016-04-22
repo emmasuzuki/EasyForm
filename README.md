@@ -137,4 +137,4 @@ app:textColor="@color/blue"
 More example: <a href="https://github.com/emmasuzuki/EasyForm/tree/master/sample">Sample</a>
 
 ###Feature Request, Bug Report
-I am very happy to hear all of these. To keep this project going, please file an issue for any requests. <a href="https://github.com/emmasuzuki/EasyForm/issues">File Issue</a>.
+I am very happy to hear all of these. To keep this project going, please file an issue for any requests. <a href="https://github.com/emmasuzuki/EasyForm/issues">File Issue</a>
