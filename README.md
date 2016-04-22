@@ -116,7 +116,7 @@ You can also set these properties in java.
 ###EasyTextInputLayout
 EasyTextInputLayout extends TextInputLayout. Similar to EasyEditText, this applies an error message by built-in `setError()`. EasyTextInputLayout adds EditText automatically, so unlike you do with TextInputLayout, you do not have to add EditText as a child. 
 
-All properties from EasyEditText can be applied for EasyTextInputLayout and additionally there are a few more that you can set.
+All properties from EasyFormEditText can be applied for EasyTextInputLayout and additionally there are a few more that you can set.
 
 ####Properties
 android:inputType: EasyTextInputLayout bypass android's inputType to EditText. 
