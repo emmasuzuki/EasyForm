@@ -8,7 +8,7 @@ Inspired by AngularJS's `ng-pattern`, `required` etc., EasyForm makes field vali
 You set error properties and message in xml and EasyForm will show error message when it is needed. Optinally, a button can be disabled when there is an error and enabled when all fields have valid inputs.
 
 ### Disclaimer
-This project is still with minimal features. I am very happy to accept any feature requests, bug reports. Please feel free to open Issues and I will try my best to prioritize it. I really like to ask for any additional feature ideas since a form varies for different product domains and I am bad at see all ascpects of those use cases.
+This project is still with minimal features. I am very happy to accept any feature requests, bug reports. Please feel free to open Issues and I will try my best to prioritize it. I really like to ask for any additional feature ideas since a form varies for different product domains and I am bad at see all aspects of those use cases.
 
 ##Installation
 ```
@@ -116,7 +116,7 @@ app:maxChars="10"
 You can also set these properties in java.
 
 ###EasyTextInputLayout
-EasyTextInputLayout extends TextInputLayout. Similar to EasyEditText, this applies an error message by built-in `setError()`. EasyTextInputLayout adds EditText automatically, so unlike you do with TextInputLayout, you do not have to add EditText as a child. 
+EasyTextInputLayout extends TextInputLayout. Similar to EasyFormEditText, this applies an error message by built-in `setError()`. EasyTextInputLayout adds EditText automatically, so unlike you do with TextInputLayout, you do not have to add EditText as a child. 
 
 All properties from EasyFormEditText can be applied for EasyTextInputLayout and additionally there are a few more that you can set.
 
