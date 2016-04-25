@@ -1,4 +1,6 @@
 # EasyForm
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-EasyForm-green.svg?style=true)](https://android-arsenal.com/details/1/3474)
+
 ![Image of Demo1](https://raw.githubusercontent.com/emmasuzuki/EasyForm/master/demo1.gif) 
 ![Image of Demo2](https://raw.githubusercontent.com/emmasuzuki/EasyForm/master/demo2.gif)
 
