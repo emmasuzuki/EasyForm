@@ -23,14 +23,14 @@ import android.view.View;
 
 import java.util.regex.Pattern;
 
-public abstract class EasyFormTextWatcher implements TextWatcher {
+abstract class EasyFormTextWatcher implements TextWatcher {
 
     private View delegateView;
 
     private ErrorType errorType;
     private String regexPattern;
-    private int minValue;
-    private int maxValue;
+    private float minValue;
+    private float maxValue;
     private int minChars;
     private int maxChars;
     private OnEasyFormTextListener easyFormTextListener;
@@ -45,7 +45,7 @@ public abstract class EasyFormTextWatcher implements TextWatcher {
         this.delegateView = delegateView;
     }
 
-    void setErrorType(ErrorType errorType) {
+    public void setErrorType(ErrorType errorType) {
         this.errorType = errorType;
     }
 
@@ -53,11 +53,11 @@ public abstract class EasyFormTextWatcher implements TextWatcher {
         this.regexPattern = regexPattern;
     }
 
-    void setMinValue(int minValue) {
+    void setMinValue(float minValue) {
         this.minValue = minValue;
     }
 
-    void setMaxValue(int maxValue) {
+    void setMaxValue(float maxValue) {
         this.maxValue = maxValue;
     }
 
@@ -96,7 +96,7 @@ public abstract class EasyFormTextWatcher implements TextWatcher {
 
             case VALUE:
                 try {
-                    int value = Integer.parseInt(s.toString());
+                    float value = Float.parseFloat(s.toString());
                     hasError = value < minValue || value > maxValue;
                 } catch (Exception e) {
                     hasError = true;

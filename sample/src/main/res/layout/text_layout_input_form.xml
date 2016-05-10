@@ -22,7 +22,6 @@
         android:layout_marginTop="4dp"
         android:hint="@string/digit_check"
         app:errorMessage="@string/error_message_digit"
-        app:errorType="pattern"
         app:regexPattern="[0-9]+" />
 
     <Button

@@ -35,21 +35,26 @@ public enum ErrorType {
 
     @Override
     public String toString() {
+        String str = "ErrorType { ";
+
         switch (this) {
             case EMPTY:
-                return "Empty";
+                str += "Empty";
 
             case PATTERN:
-                return "Pattern";
+                str += "Pattern";
 
             case VALUE:
-                return "Value";
+                str += "Value";
 
             case CHARS:
-                return "Chars";
+                str += "Chars";
 
             default:
-                return "None";
+                str += "None";
         }
+
+        str += " }";
+        return str;
     }
 }
