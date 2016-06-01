@@ -45,7 +45,7 @@ abstract class EasyFormTextWatcher implements TextWatcher {
         this.delegateView = delegateView;
     }
 
-    public void setErrorType(ErrorType errorType) {
+    void setErrorType(ErrorType errorType) {
         this.errorType = errorType;
     }
 

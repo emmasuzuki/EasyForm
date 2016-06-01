@@ -18,7 +18,6 @@ package com.emmasuzuki.easyformsample;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +33,6 @@ public class EditTextFormFragment extends Fragment {
     @Bind(R.id.email_check_edittext)
     EasyFormEditText emailEditText;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.edit_text_form, container, false);

@@ -25,7 +25,6 @@ import android.view.ViewGroup;
 
 public class TextInputLayoutFormFragment extends Fragment {
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.text_layout_input_form, container, false);
