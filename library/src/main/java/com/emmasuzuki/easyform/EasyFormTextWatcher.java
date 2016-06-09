@@ -106,6 +106,9 @@ abstract class EasyFormTextWatcher implements TextWatcher {
             case CHARS:
                 hasError = s.length() < minChars || s.length() > maxChars;
                 break;
+
+            default:
+                break;
         }
 
         if (hasError) {

@@ -157,7 +157,7 @@ public class EasyTextInputLayout extends TextInputLayout {
     }
 
     private void setUpErrorProperties() {
-        if (minValue != Float.MIN_VALUE || maxValue != Float.MAX_VALUE) {
+        if (minValue > Float.MIN_VALUE || maxValue < Float.MAX_VALUE) {
             errorType = ErrorType.VALUE;
             easyFormTextWatcher.setMinValue(minValue);
             easyFormTextWatcher.setMaxValue(maxValue);

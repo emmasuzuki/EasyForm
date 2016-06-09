@@ -72,26 +72,31 @@ public class EasyFormEditText extends EditText {
 
     public void setRegexPattern(String regexPattern) {
         this.regexPattern = regexPattern;
+        setErrorType(ErrorType.PATTERN);
         easyFormTextWatcher.setRegexPattern(regexPattern);
     }
 
     public void setMinValue(int minValue) {
         this.minValue = minValue;
+        setErrorType(ErrorType.VALUE);
         easyFormTextWatcher.setMinValue(minValue);
     }
 
     public void setMaxValue(int maxValue) {
         this.maxValue = maxValue;
+        setErrorType(ErrorType.VALUE);
         easyFormTextWatcher.setMaxValue(maxValue);
     }
 
     public void setMinChars(int minChars) {
         this.minChars = minChars;
+        setErrorType(ErrorType.CHARS);
         easyFormTextWatcher.setMinChars(minChars);
     }
 
     public void setMaxChars(int maxChars) {
         this.maxChars = maxChars;
+        setErrorType(ErrorType.CHARS);
         easyFormTextWatcher.setMaxChars(maxChars);
     }
 
@@ -131,7 +136,7 @@ public class EasyFormEditText extends EditText {
     }
 
     private void setUpErrorProperties() {
-        if (minValue != Float.MIN_VALUE || maxValue != Float.MAX_VALUE) {
+        if (minValue > Float.MIN_VALUE || maxValue < Float.MAX_VALUE) {
             errorType = ErrorType.VALUE;
             easyFormTextWatcher.setMinValue(minValue);
             easyFormTextWatcher.setMaxValue(maxValue);
@@ -148,6 +153,11 @@ public class EasyFormEditText extends EditText {
             easyFormTextWatcher.setRegexPattern(regexPattern);
         }
 
+        easyFormTextWatcher.setErrorType(errorType);
+    }
+
+    private void setErrorType(ErrorType errorType) {
+        this.errorType = errorType;
         easyFormTextWatcher.setErrorType(errorType);
     }
 }
