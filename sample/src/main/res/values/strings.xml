@@ -9,11 +9,13 @@
     <string name="empty_check">Empty check</string>
     <string name="email_check">Email check</string>
     <string name="digit_check">Digit check</string>
+    <string name="value_check">Value check</string>
     <string name="no_check">No check</string>
 
     <string name="error_message_empty">Please fill this field</string>
     <string name="error_message_email">Please input valid email</string>
     <string name="error_message_digit">Please input digit only</string>
+    <string name="error_message_value">Please input value between -100 and 100</string>
     <string name="error_message_employee_id">Employee ID must be above or equal to 100.</string>
     <string name="error_message_account">Account should be 6&#8211;12 chars</string>
     <string name="error_message_password">No special characters are allowed and length must be in 6&#8211;12 chars</string>
