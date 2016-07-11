@@ -74,6 +74,9 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new LongFormFragment();
                 tag = LONG_FORM_TAG;
                 break;
+
+            default:
+                break;
         }
 
         getFragmentManager().beginTransaction()

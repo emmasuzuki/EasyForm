@@ -18,6 +18,7 @@ package com.emmasuzuki.easyform;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -29,13 +30,15 @@ public class EasyTextInputLayout extends TextInputLayout {
     private static final String ANDROID_RES_NAMESPACE = "http://schemas.android.com/apk/res/android";
     private static final int INVALID_VALUE = -1;
 
+    private EditText easyFormEditText;
+
     private int editTextInputType;
     private float editTextTextSize;
     private int editTextColor;
     private ErrorType errorType;
     private String regexPattern = "";
-    private int minValue = 0;
-    private int maxValue = Integer.MAX_VALUE;
+    private float minValue = Float.MIN_VALUE;
+    private float maxValue = Float.MAX_VALUE;
     private int minChars = 0;
     private int maxChars = Integer.MAX_VALUE;
     private String errorMessage;
@@ -73,6 +76,12 @@ public class EasyTextInputLayout extends TextInputLayout {
         if (!isInEditMode()) {
             setPropertyFromAttributes(attrs);
         }
+    }
+
+    @NonNull
+    @Override
+    public EditText getEditText() {
+        return easyFormEditText;
     }
 
     public ErrorType getErrorType() {
@@ -129,8 +138,8 @@ public class EasyTextInputLayout extends TextInputLayout {
             errorType = ErrorType.valueOf(type);
             errorMessage = typedArray.getString(R.styleable.EasyFormEditText_errorMessage);
             regexPattern = typedArray.getString(R.styleable.EasyFormEditText_regexPattern);
-            minValue = typedArray.getInt(R.styleable.EasyFormEditText_minValue, INVALID_VALUE);
-            maxValue = typedArray.getInt(R.styleable.EasyFormEditText_maxValue, INVALID_VALUE);
+            minValue = typedArray.getFloat(R.styleable.EasyFormEditText_minValue, Float.MIN_VALUE);
+            maxValue = typedArray.getFloat(R.styleable.EasyFormEditText_maxValue, Float.MAX_VALUE);
             minChars = typedArray.getInt(R.styleable.EasyFormEditText_minChars, INVALID_VALUE);
             maxChars = typedArray.getInt(R.styleable.EasyFormEditText_maxChars, INVALID_VALUE);
 
@@ -148,10 +157,10 @@ public class EasyTextInputLayout extends TextInputLayout {
     }
 
     private void setUpErrorProperties() {
-        if (minValue != INVALID_VALUE || maxValue != INVALID_VALUE) {
+        if (minValue > Float.MIN_VALUE || maxValue < Float.MAX_VALUE) {
             errorType = ErrorType.VALUE;
-            easyFormTextWatcher.setMinValue(Math.max(0, minValue));
-            easyFormTextWatcher.setMaxValue(maxValue == INVALID_VALUE ? Integer.MAX_VALUE : maxValue);
+            easyFormTextWatcher.setMinValue(minValue);
+            easyFormTextWatcher.setMaxValue(maxValue);
         }
 
         if (minChars != INVALID_VALUE || maxChars != INVALID_VALUE) {
@@ -169,7 +178,7 @@ public class EasyTextInputLayout extends TextInputLayout {
     }
 
     private void addEasyEditText() {
-        EditText easyFormEditText = new EditText(getContext());
+        easyFormEditText = new EditText(getContext());
         easyFormEditText.setSingleLine();
 
         if (editTextInputType != -1) {

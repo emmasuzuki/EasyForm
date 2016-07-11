@@ -22,14 +22,24 @@
         android:layout_marginTop="4dp"
         android:hint="@string/digit_check"
         app:errorMessage="@string/error_message_digit"
-        app:errorType="pattern"
         app:regexPattern="[0-9]+" />
+
+    <com.emmasuzuki.easyform.EasyTextInputLayout
+        android:id="@+id/value_check_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/digit_check_input"
+        android:layout_marginTop="4dp"
+        android:hint="@string/value_check"
+        app:errorMessage="@string/error_message_value"
+        app:minValue="-100"
+        app:maxValue="100" />
 
     <Button
         android:id="@id/submit_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/digit_check_input"
+        android:layout_below="@id/value_check_input"
         android:layout_marginTop="20dp"
         android:background="@color/colorAccent"
         android:text="@string/submit"
