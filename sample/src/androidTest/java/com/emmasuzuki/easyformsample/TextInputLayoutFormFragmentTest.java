@@ -44,10 +44,12 @@ public class TextInputLayoutFormFragmentTest {
 
     private Matcher<View> emptyCheckInputMatcher = withId(R.id.empty_check_input);
     private Matcher<View> digitCheckInputMatcher = withId(R.id.digit_check_input);
+    private Matcher<View> valueCheckInputMatcher = withId(R.id.value_check_input);
 
     private ViewInteraction submitButton = onView(withId(R.id.submit_button));
     private ViewInteraction emptyCheckEditText = onView(editTextIn(emptyCheckInputMatcher));
     private ViewInteraction digitCheckEditText = onView(editTextIn(digitCheckInputMatcher));
+    private ViewInteraction valueCheckEditText = onView(editTextIn(valueCheckInputMatcher));
 
     public TextInputLayoutFormFragmentTest(Activity activity) {
         this.activity = activity;
@@ -78,9 +80,20 @@ public class TextInputLayoutFormFragmentTest {
         }
     }
 
-    public void testSubmitButton(String emptyCheckStr, String digitCheckStr, boolean valid) {
+    public void testValueCheckField(String str, boolean valid) {
+        valueCheckEditText.perform(clearText(), typeText(str), closeSoftKeyboard());
+
+        if (valid) {
+            onView(valueCheckInputMatcher).check(matches(hasNoErrorText()));
+        } else {
+            onView(valueCheckInputMatcher).check(matches(hasErrorText(activity.getString(R.string.error_message_value))));
+        }
+    }
+
+    public void testSubmitButton(String emptyCheckStr, String digitCheckStr, String valueCheckStr, boolean valid) {
         emptyCheckEditText.perform(clearText(), typeText(emptyCheckStr));
-        digitCheckEditText.perform(clearText(), typeText(digitCheckStr), closeSoftKeyboard());
+        digitCheckEditText.perform(clearText(), typeText(digitCheckStr));
+        valueCheckEditText.perform(clearText(), typeText(valueCheckStr), closeSoftKeyboard());
 
         if (valid) {
             submitButton.check(matches(isEnabled()));

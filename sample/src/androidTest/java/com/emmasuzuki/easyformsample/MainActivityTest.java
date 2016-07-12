@@ -115,21 +115,39 @@ public class MainActivityTest {
     }
 
     @Test
+    public void testTextInputLayoutFormFragmentTest_ValueCheckInput_Success() {
+        textInputLayoutFormFragmentTest.openTextInputLayoutFormFragment();
+        textInputLayoutFormFragmentTest.testValueCheckField("-100", true);
+    }
+
+    @Test
+    public void testTextInputLayoutFormFragmentTest_ValueCheckInput_String() {
+        textInputLayoutFormFragmentTest.openTextInputLayoutFormFragment();
+        textInputLayoutFormFragmentTest.testValueCheckField("string", false);
+    }
+
+    @Test
+    public void testTextInputLayoutFormFragmentTest_ValueCheckInput_BelowMin() {
+        textInputLayoutFormFragmentTest.openTextInputLayoutFormFragment();
+        textInputLayoutFormFragmentTest.testValueCheckField("-100.1", false);
+    }
+
+    @Test
     public void testTextInputLayoutFormFragmentTest_SubmitButton_Enable() {
         textInputLayoutFormFragmentTest.openTextInputLayoutFormFragment();
-        textInputLayoutFormFragmentTest.testSubmitButton("test", "12345", true);
+        textInputLayoutFormFragmentTest.testSubmitButton("test", "12345", "0", true);
     }
 
     @Test
     public void testTextInputLayoutFormFragmentTest_SubmitButton_NoTextOnEmptyField() {
         textInputLayoutFormFragmentTest.openTextInputLayoutFormFragment();
-        textInputLayoutFormFragmentTest.testSubmitButton("", "12345", false);
+        textInputLayoutFormFragmentTest.testSubmitButton("", "12345", "0", false);
     }
 
     @Test
     public void testTextInputLayoutFormFragmentTest_SubmitButton_StringOnDigitField() {
         textInputLayoutFormFragmentTest.openTextInputLayoutFormFragment();
-        textInputLayoutFormFragmentTest.testSubmitButton("test", "test", false);
+        textInputLayoutFormFragmentTest.testSubmitButton("test", "test", "0", false);
     }
 
     @Test
