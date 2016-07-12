@@ -12,7 +12,7 @@ This project is still with minimal features. I am very happy to accept any featu
 
 ##Installation
 ```
-compile 'com.emmasuzuki:easyform:1.0.0'
+compile 'com.emmasuzuki:easyform:1.0.1'
 ```
 
 ##Example
