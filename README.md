@@ -83,19 +83,19 @@ ex) Allow only digits.
 app:regexPattern="[0-9]+"
 ```
 
-minValue: Set a minimum value (inclusive). Currently only supports positive integers.
+minValue: Set a minimum value (inclusive).
 
 ex) Allow value >= 100
 ```
 app:minValue="100"
 ```
 
-maxValue: Set a maximum value (inclusive). Currently only supports positive integers. You can conbine with minValue.
+maxValue: Set a maximum value (inclusive). You can conbine with minValue.
 
-ex) Allow 100 <= value <=200
+ex) Allow -100 <= value <= 100
 ```
-app:minValue="100"
-app:maxValue="200"
+app:minValue="-100"
+app:maxValue="100"
 ```
 
 minChars: Set a minimum char length (inclusive).
