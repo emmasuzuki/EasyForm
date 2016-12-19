@@ -32,6 +32,7 @@ public class EasyFormEditText extends EditText {
     private int minChars = 0;
     private int maxChars = Integer.MAX_VALUE;
     private String errorMessage;
+    private ShowErrorOn showErrorOn;
 
     private EasyFormTextWatcher easyFormTextWatcher = new EasyFormTextWatcher(this) {
 
@@ -102,6 +103,10 @@ public class EasyFormEditText extends EditText {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public void setShowErrorOn(ShowErrorOn showErrorOn) {
+        this.showErrorOn = showErrorOn;
     }
 
     void setEasyFormEditTextListener(EasyFormTextWatcher.OnEasyFormTextListener easyFormEditTextListener) {

@@ -28,6 +28,7 @@ import android.widget.RelativeLayout;
 public class EasyForm extends RelativeLayout implements EasyFormTextWatcher.OnEasyFormTextListener {
 
     private Button submitButton;
+    private ShowErrorOn showErrorOn;
 
     private SparseBooleanArray fieldCheckList;
     private int submitButtonId;
@@ -104,6 +105,8 @@ public class EasyForm extends RelativeLayout implements EasyFormTextWatcher.OnEa
 
         if (typedArray != null) {
             submitButtonId = typedArray.getResourceId(R.styleable.EasyForm_submitButton, -1);
+            int type = typedArray.getInt(R.styleable.EasyForm_showErrorOn, -1);
+            showErrorOn = ShowErrorOn.valueOf(type);
 
             typedArray.recycle();
         }
