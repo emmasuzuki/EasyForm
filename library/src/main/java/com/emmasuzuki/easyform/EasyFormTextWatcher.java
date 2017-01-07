@@ -17,22 +17,14 @@
 package com.emmasuzuki.easyform;
 
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-
-import java.util.regex.Pattern;
 
 abstract class EasyFormTextWatcher implements TextWatcher {
 
     private View delegateView;
+    private FormValidator formValidator;
 
-    private ErrorType errorType;
-    private String regexPattern;
-    private float minValue;
-    private float maxValue;
-    private int minChars;
-    private int maxChars;
     private OnEasyFormTextListener easyFormTextListener;
 
     interface OnEasyFormTextListener {
@@ -45,28 +37,8 @@ abstract class EasyFormTextWatcher implements TextWatcher {
         this.delegateView = delegateView;
     }
 
-    void setErrorType(ErrorType errorType) {
-        this.errorType = errorType;
-    }
-
-    void setRegexPattern(String regexPattern) {
-        this.regexPattern = regexPattern;
-    }
-
-    void setMinValue(float minValue) {
-        this.minValue = minValue;
-    }
-
-    void setMaxValue(float maxValue) {
-        this.maxValue = maxValue;
-    }
-
-    void setMinChars(int minChars) {
-        this.minChars = minChars;
-    }
-
-    void setMaxChars(int maxChars) {
-        this.maxChars = maxChars;
+    public void setFormValidator(FormValidator formValidator) {
+        this.formValidator = formValidator;
     }
 
     void setEasyFormTextListener(OnEasyFormTextListener easyFormTextListener) {
@@ -83,33 +55,7 @@ abstract class EasyFormTextWatcher implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-        boolean hasError = false;
-
-        switch (errorType) {
-            case EMPTY:
-                hasError = TextUtils.isEmpty(s.toString());
-                break;
-
-            case PATTERN:
-                hasError = !Pattern.compile(regexPattern).matcher(s.toString()).matches();
-                break;
-
-            case VALUE:
-                try {
-                    float value = Float.parseFloat(s.toString());
-                    hasError = value < minValue || value > maxValue;
-                } catch (Exception e) {
-                    hasError = true;
-                }
-                break;
-
-            case CHARS:
-                hasError = s.length() < minChars || s.length() > maxChars;
-                break;
-
-            default:
-                break;
-        }
+        boolean hasError = formValidator.isValid(s);
 
         if (hasError) {
             renderError();

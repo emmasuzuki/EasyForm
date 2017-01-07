@@ -16,10 +16,6 @@
 
 package com.emmasuzuki.easyform;
 
-/**
- * Created by miyukisuzuki on 11/17/16.
- */
-
 public enum ShowErrorOn {
     UNFOCUS,
     CHANGE;

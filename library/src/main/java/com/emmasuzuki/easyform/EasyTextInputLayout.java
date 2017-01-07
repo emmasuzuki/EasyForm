@@ -90,27 +90,27 @@ public class EasyTextInputLayout extends TextInputLayout {
 
     public void setRegexPattern(String regexPattern) {
         this.regexPattern = regexPattern;
-        easyFormTextWatcher.setRegexPattern(regexPattern);
+//        easyFormTextWatcher.setRegexPattern(regexPattern);
     }
 
     public void setMinValue(int minValue) {
         this.minValue = minValue;
-        easyFormTextWatcher.setMinValue(minValue);
+//        easyFormTextWatcher.setMinValue(minValue);
     }
 
     public void setMaxValue(int maxValue) {
         this.maxValue = maxValue;
-        easyFormTextWatcher.setMaxValue(maxValue);
+//        easyFormTextWatcher.setMaxValue(maxValue);
     }
 
     public void setMinChars(int minChars) {
         this.minChars = minChars;
-        easyFormTextWatcher.setMinChars(minChars);
+//        easyFormTextWatcher.setMinChars(minChars);
     }
 
     public void setMaxChars(int maxChars) {
         this.maxChars = maxChars;
-        easyFormTextWatcher.setMaxChars(maxChars);
+//        easyFormTextWatcher.setMaxChars(maxChars);
     }
 
     public void setErrorMessage(String errorMessage) {
@@ -157,24 +157,24 @@ public class EasyTextInputLayout extends TextInputLayout {
     }
 
     private void setUpErrorProperties() {
-        if (minValue > Float.MIN_VALUE || maxValue < Float.MAX_VALUE) {
-            errorType = ErrorType.VALUE;
-            easyFormTextWatcher.setMinValue(minValue);
-            easyFormTextWatcher.setMaxValue(maxValue);
-        }
-
-        if (minChars != INVALID_VALUE || maxChars != INVALID_VALUE) {
-            errorType = ErrorType.CHARS;
-            easyFormTextWatcher.setMinChars(Math.max(0, minChars));
-            easyFormTextWatcher.setMaxChars(maxChars == INVALID_VALUE ? Integer.MAX_VALUE : maxChars);
-        }
-
-        if (regexPattern != null) {
-            errorType = ErrorType.PATTERN;
-            easyFormTextWatcher.setRegexPattern(regexPattern);
-        }
-
-        easyFormTextWatcher.setErrorType(errorType);
+//        if (minValue > Float.MIN_VALUE || maxValue < Float.MAX_VALUE) {
+//            errorType = ErrorType.VALUE;
+//            easyFormTextWatcher.setMinValue(minValue);
+//            easyFormTextWatcher.setMaxValue(maxValue);
+//        }
+//
+//        if (minChars != INVALID_VALUE || maxChars != INVALID_VALUE) {
+//            errorType = ErrorType.CHARS;
+//            easyFormTextWatcher.setMinChars(Math.max(0, minChars));
+//            easyFormTextWatcher.setMaxChars(maxChars == INVALID_VALUE ? Integer.MAX_VALUE : maxChars);
+//        }
+//
+//        if (regexPattern != null) {
+//            errorType = ErrorType.PATTERN;
+//            easyFormTextWatcher.setRegexPattern(regexPattern);
+//        }
+//
+//        easyFormTextWatcher.setErrorType(errorType);
     }
 
     private void addEasyEditText() {

@@ -94,6 +94,7 @@ public class EasyForm extends RelativeLayout implements EasyFormTextWatcher.OnEa
                 EasyFormEditText easyFormEditText = (EasyFormEditText) view;
                 if (easyFormEditText.getErrorType() != ErrorType.NONE) {
                     easyFormEditText.setEasyFormEditTextListener(this);
+                    easyFormEditText.setShowErrorOn(showErrorOn);
                     fieldCheckList.put(easyFormEditText.getId(), false);
                 }
             }
