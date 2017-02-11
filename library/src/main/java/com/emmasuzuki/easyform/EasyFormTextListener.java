@@ -16,16 +16,14 @@
 
 package com.emmasuzuki.easyform;
 
-public enum ShowErrorOn {
-    UNFOCUS,
-    CHANGE;
+import android.view.View;
 
-    public static ShowErrorOn valueOf(int value) {
-        return value == CHANGE.ordinal() ? CHANGE : UNFOCUS;
-    }
+/**
+ * Created by miyukisuzuki on 2/10/17.
+ */
 
-    @Override
-    public String toString() {
-        return this == CHANGE ? "Change" : "Unfocus";
-    }
+public interface EasyFormTextListener {
+    void onFilled(View view);
+
+    void onError(View view);
 }

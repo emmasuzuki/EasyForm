@@ -25,7 +25,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-public class EasyForm extends RelativeLayout implements EasyFormTextWatcher.OnEasyFormTextListener {
+public class EasyForm extends RelativeLayout implements EasyFormTextListener {
 
     private Button submitButton;
     private ShowErrorOn showErrorOn;
