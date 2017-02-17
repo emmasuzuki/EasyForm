@@ -61,27 +61,36 @@ public class FormValidator {
         return !hasError;
     }
 
+    public ErrorType getErrorType() {
+        return errorType;
+    }
+
     public void setErrorType(ErrorType errorType) {
         this.errorType = errorType;
     }
 
     public void setRegexPattern(String regexPattern) {
+        errorType = ErrorType.PATTERN;
         this.regexPattern = regexPattern;
     }
 
     public void setMinValue(float minValue) {
+        errorType = ErrorType.VALUE;
         this.minValue = minValue;
     }
 
     public void setMaxValue(float maxValue) {
+        errorType = ErrorType.VALUE;
         this.maxValue = maxValue;
     }
 
     public void setMinChars(int minChars) {
+        errorType = ErrorType.CHARS;
         this.minChars = minChars;
     }
 
     public void setMaxChars(int maxChars) {
+        errorType = ErrorType.CHARS;
         this.maxChars = maxChars;
     }
 }

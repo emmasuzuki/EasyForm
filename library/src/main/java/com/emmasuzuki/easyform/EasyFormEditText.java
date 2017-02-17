@@ -31,7 +31,6 @@ public class EasyFormEditText extends EditText implements View.OnFocusChangeList
     private FormValidator validator;
     private EasyFormTextListener easyFormTextListener;
 
-    private ErrorType errorType;
     private String regexPattern = "";
     private float minValue = Float.MIN_VALUE;
     private float maxValue = Float.MAX_VALUE;
@@ -96,41 +95,35 @@ public class EasyFormEditText extends EditText implements View.OnFocusChangeList
     }
 
     public ErrorType getErrorType() {
-        return errorType;
+        return validator.getErrorType();
     }
 
     public void setErrorType(ErrorType errorType) {
-        this.errorType = errorType;
         validator.setErrorType(errorType);
     }
 
     public void setRegexPattern(String regexPattern) {
         this.regexPattern = regexPattern;
-        setErrorType(ErrorType.PATTERN);
         validator.setRegexPattern(regexPattern);
     }
 
     public void setMinValue(int minValue) {
         this.minValue = minValue;
-        setErrorType(ErrorType.VALUE);
         validator.setMinValue(minValue);
     }
 
     public void setMaxValue(int maxValue) {
         this.maxValue = maxValue;
-        setErrorType(ErrorType.VALUE);
         validator.setMaxValue(maxValue);
     }
 
     public void setMinChars(int minChars) {
         this.minChars = minChars;
-        setErrorType(ErrorType.CHARS);
         validator.setMinChars(minChars);
     }
 
     public void setMaxChars(int maxChars) {
         this.maxChars = maxChars;
-        setErrorType(ErrorType.CHARS);
         validator.setMaxChars(maxChars);
     }
 
@@ -149,6 +142,7 @@ public class EasyFormEditText extends EditText implements View.OnFocusChangeList
     private void setPropertyFromAttributes(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.EasyFormEditText);
 
+        ErrorType errorType = ErrorType.NONE;
         if (typedArray != null) {
             int type = typedArray.getInt(R.styleable.EasyFormEditText_errorType, -1);
             errorType = ErrorType.valueOf(type);
@@ -163,7 +157,7 @@ public class EasyFormEditText extends EditText implements View.OnFocusChangeList
                 errorMessage = "Error";
             }
 
-            setUpErrorProperties();
+            setUpErrorProperties(errorType);
 
             typedArray.recycle();
         }
@@ -177,27 +171,24 @@ public class EasyFormEditText extends EditText implements View.OnFocusChangeList
         }
     }
 
-    private void setUpErrorProperties() {
+    private void setUpErrorProperties(ErrorType errorType) {
         validator = new FormValidator();
 
         if (errorType == ErrorType.EMPTY) {
-            setErrorType(errorType);
+            validator.setErrorType(errorType);
         }
 
         if (minValue > Float.MIN_VALUE || maxValue < Float.MAX_VALUE) {
-            setErrorType(ErrorType.VALUE);
             validator.setMinValue(minValue);
             validator.setMaxValue(maxValue);
         }
 
         if (minChars != INVALID_VALUE || maxChars != INVALID_VALUE) {
-            setErrorType(ErrorType.CHARS);
             validator.setMinChars(Math.max(0, minChars));
             validator.setMaxChars(maxChars == INVALID_VALUE ? Integer.MAX_VALUE : maxChars);
         }
 
         if (regexPattern != null) {
-            setErrorType(errorType = ErrorType.PATTERN);
             validator.setRegexPattern(regexPattern);
         }
     }

@@ -18,10 +18,6 @@ package com.emmasuzuki.easyform;
 
 import android.view.View;
 
-/**
- * Created by miyukisuzuki on 2/10/17.
- */
-
 public interface EasyFormTextListener {
     void onFilled(View view);
 
