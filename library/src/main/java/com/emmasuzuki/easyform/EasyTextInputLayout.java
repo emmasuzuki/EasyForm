@@ -31,6 +31,7 @@ public class EasyTextInputLayout extends TextInputLayout {
     private static final int INVALID_VALUE = -1;
 
     private EditText easyFormEditText;
+    private EasyFormTextListener easyFormTextListener;
 
     private int editTextInputType;
     private float editTextTextSize;
@@ -42,21 +43,6 @@ public class EasyTextInputLayout extends TextInputLayout {
     private int minChars = 0;
     private int maxChars = Integer.MAX_VALUE;
     private String errorMessage;
-
-    private EasyFormTextWatcher easyFormTextWatcher = new EasyFormTextWatcher(this) {
-
-        @Override
-        protected void renderError() {
-            setError(errorMessage);
-            setErrorEnabled(true);
-        }
-
-        @Override
-        protected void clearError() {
-            setError(null);
-            setErrorEnabled(false);
-        }
-    };
 
     public EasyTextInputLayout(Context context) {
         super(context);
@@ -117,8 +103,8 @@ public class EasyTextInputLayout extends TextInputLayout {
         this.errorMessage = errorMessage;
     }
 
-    void setEasyFormEditTextListener(EasyFormTextWatcher.OnEasyFormTextListener easyFormEditTextListener) {
-        easyFormTextWatcher.setEasyFormTextListener(easyFormEditTextListener);
+    void setEasyFormEditTextListener(EasyFormTextListener easyFormEditTextListener) {
+//        easyFormTextWatcher.setEasyFormTextListener(easyFormEditTextListener);
     }
 
     @Override
@@ -197,7 +183,7 @@ public class EasyTextInputLayout extends TextInputLayout {
         easyFormEditText.setLayoutParams(params);
 
         if (errorType != ErrorType.NONE) {
-            easyFormEditText.addTextChangedListener(easyFormTextWatcher);
+//            easyFormEditText.addTextChangedListener(this);
         }
 
         addView(easyFormEditText);

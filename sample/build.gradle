@@ -28,7 +28,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
 //    compile 'com.emmasuzuki:easyform:1.0.1'
 
-    compile project(':library')
+    compile project(path: ':library', configuration: 'debug')
 
     testCompile 'junit:junit:4.12'
 
