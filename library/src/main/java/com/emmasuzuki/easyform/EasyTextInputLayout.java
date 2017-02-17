@@ -22,15 +22,17 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-public class EasyTextInputLayout extends TextInputLayout {
+public class EasyTextInputLayout extends TextInputLayout implements View.OnFocusChangeListener {
 
     private static final String ANDROID_RES_NAMESPACE = "http://schemas.android.com/apk/res/android";
     private static final int INVALID_VALUE = -1;
 
     private EditText easyFormEditText;
+    private FormValidator validator;
     private EasyFormTextListener easyFormTextListener;
 
     private int editTextInputType;
@@ -64,6 +66,11 @@ public class EasyTextInputLayout extends TextInputLayout {
         }
     }
 
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+
+    }
+
     @NonNull
     @Override
     public EditText getEditText() {
@@ -71,7 +78,7 @@ public class EasyTextInputLayout extends TextInputLayout {
     }
 
     public ErrorType getErrorType() {
-        return errorType;
+        return validator.getErrorType();
     }
 
     public void setRegexPattern(String regexPattern) {

@@ -20,16 +20,36 @@ import android.text.TextUtils;
 
 import java.util.regex.Pattern;
 
-public class FormValidator {
+class FormValidator {
 
-    private ErrorType errorType;
+    static final int INVALID_VALUE = -1;
+
+    private ErrorType errorType = ErrorType.NONE;
     private String regexPattern;
     private float minValue;
     private float maxValue;
     private int minChars;
     private int maxChars;
 
-    public boolean isValid(CharSequence s) {
+    FormValidator(ErrorType errorType, String regexPattern, float minValue, float maxValue, int minChars, int maxChars) {
+        this.errorType = errorType;
+
+        if (minValue > Float.MIN_VALUE || maxValue < Float.MAX_VALUE) {
+            this.minValue = minValue;
+            this.maxValue = maxValue;
+        }
+
+        if (minChars != INVALID_VALUE || maxChars != INVALID_VALUE) {
+            this.minChars = Math.max(0, minChars);
+            this.maxChars = maxChars == INVALID_VALUE ? Integer.MAX_VALUE : maxChars;
+        }
+
+        if (regexPattern != null) {
+            this.regexPattern = regexPattern;
+        }
+    }
+
+    boolean isValid(CharSequence s) {
         boolean hasError = false;
 
         switch (errorType) {
@@ -61,35 +81,35 @@ public class FormValidator {
         return !hasError;
     }
 
-    public ErrorType getErrorType() {
+    ErrorType getErrorType() {
         return errorType;
     }
 
-    public void setErrorType(ErrorType errorType) {
+    void setErrorType(ErrorType errorType) {
         this.errorType = errorType;
     }
 
-    public void setRegexPattern(String regexPattern) {
+    void setRegexPattern(String regexPattern) {
         errorType = ErrorType.PATTERN;
         this.regexPattern = regexPattern;
     }
 
-    public void setMinValue(float minValue) {
+    void setMinValue(float minValue) {
         errorType = ErrorType.VALUE;
         this.minValue = minValue;
     }
 
-    public void setMaxValue(float maxValue) {
+    void setMaxValue(float maxValue) {
         errorType = ErrorType.VALUE;
         this.maxValue = maxValue;
     }
 
-    public void setMinChars(int minChars) {
+    void setMinChars(int minChars) {
         errorType = ErrorType.CHARS;
         this.minChars = minChars;
     }
 
-    public void setMaxChars(int maxChars) {
+    void setMaxChars(int maxChars) {
         errorType = ErrorType.CHARS;
         this.maxChars = maxChars;
     }
