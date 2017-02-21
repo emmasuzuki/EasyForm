@@ -18,7 +18,7 @@ package com.emmasuzuki.easyform;
 
 import android.view.View;
 
-public interface EasyFormTextListener {
+interface EasyFormTextListener {
     void onFilled(View view);
 
     void onError(View view);

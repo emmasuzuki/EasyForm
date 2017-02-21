@@ -25,26 +25,29 @@ class FormValidator {
     static final int INVALID_VALUE = -1;
 
     private ErrorType errorType = ErrorType.NONE;
-    private String regexPattern;
-    private float minValue;
-    private float maxValue;
-    private int minChars;
-    private int maxChars;
+    private String regexPattern = "";
+    private float minValue = Float.MIN_VALUE;
+    private float maxValue = Float.MAX_VALUE;
+    private int minChars = 0;
+    private int maxChars = Integer.MAX_VALUE;
 
     FormValidator(ErrorType errorType, String regexPattern, float minValue, float maxValue, int minChars, int maxChars) {
         this.errorType = errorType;
 
         if (minValue > Float.MIN_VALUE || maxValue < Float.MAX_VALUE) {
+            this.errorType = ErrorType.VALUE;
             this.minValue = minValue;
             this.maxValue = maxValue;
         }
 
         if (minChars != INVALID_VALUE || maxChars != INVALID_VALUE) {
+            this.errorType = ErrorType.CHARS;
             this.minChars = Math.max(0, minChars);
             this.maxChars = maxChars == INVALID_VALUE ? Integer.MAX_VALUE : maxChars;
         }
 
         if (regexPattern != null) {
+            this.errorType = ErrorType.PATTERN;
             this.regexPattern = regexPattern;
         }
     }

@@ -21,7 +21,7 @@ public enum ShowErrorOn {
     CHANGE;
 
     public static ShowErrorOn valueOf(int value) {
-        return value == CHANGE.ordinal() ? CHANGE : UNFOCUS;
+        return value == UNFOCUS.ordinal() ? UNFOCUS : CHANGE;
     }
 
     @Override

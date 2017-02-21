@@ -30,7 +30,6 @@ public class EasyFormEditText extends EditText implements View.OnFocusChangeList
     private EasyFormTextListener easyFormTextListener;
 
     private String errorMessage;
-    private ShowErrorOn showErrorOn;
 
     private EasyFormTextWatcher textWatcher = new EasyFormTextWatcher(this) {
 
@@ -113,7 +112,15 @@ public class EasyFormEditText extends EditText implements View.OnFocusChangeList
     }
 
     void setShowErrorOn(ShowErrorOn showErrorOn) {
-        this.showErrorOn = showErrorOn;
+        if (validator.getErrorType() != ErrorType.NONE) {
+            if (showErrorOn == ShowErrorOn.CHANGE) {
+                addTextChangedListener(textWatcher);
+                setOnFocusChangeListener(null);
+            } else {
+                removeTextChangedListener(textWatcher);
+                setOnFocusChangeListener(this);
+            }
+        }
     }
 
     void setEasyFormEditTextListener(EasyFormTextListener easyFormEditTextListener) {
@@ -124,10 +131,9 @@ public class EasyFormEditText extends EditText implements View.OnFocusChangeList
     private void setPropertyFromAttributes(AttributeSet attrs) {
         TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.EasyFormEditText);
 
-        ErrorType errorType = ErrorType.NONE;
         if (typedArray != null) {
             int type = typedArray.getInt(R.styleable.EasyFormEditText_errorType, -1);
-            errorType = ErrorType.valueOf(type);
+            ErrorType errorType = ErrorType.valueOf(type);
             errorMessage = typedArray.getString(R.styleable.EasyFormEditText_errorMessage);
             String regexPattern = typedArray.getString(R.styleable.EasyFormEditText_regexPattern);
             float minValue = typedArray.getFloat(R.styleable.EasyFormEditText_minValue, Float.MIN_VALUE);
@@ -144,14 +150,6 @@ public class EasyFormEditText extends EditText implements View.OnFocusChangeList
             textWatcher.setValidator(validator);
 
             typedArray.recycle();
-        }
-
-        if (errorType != ErrorType.NONE) {
-            if (showErrorOn == ShowErrorOn.CHANGE) {
-                addTextChangedListener(textWatcher);
-            } else {
-                setOnFocusChangeListener(this);
-            }
         }
     }
 }
