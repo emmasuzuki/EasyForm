@@ -16,16 +16,22 @@
 
 package com.emmasuzuki.easyformsample;
 
+import android.support.annotation.IdRes;
 import android.support.design.widget.TextInputLayout;
+import android.support.test.espresso.ViewInteraction;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
+import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.core.deps.guava.base.Preconditions.checkNotNull;
+import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
+import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
+import static android.support.test.espresso.matcher.ViewMatchers.withId;
+import static org.hamcrest.Matchers.allOf;
 
 public final class ErrorTextMatcher {
 
@@ -78,27 +84,7 @@ public final class ErrorTextMatcher {
         };
     }
 
-    public static Matcher<View> editTextIn(final Matcher<View> parentMatcher) {
-        checkNotNull(parentMatcher);
-        return new TypeSafeMatcher<View>() {
-            @Override
-            public void describeTo(Description description) {
-                description.appendText("editText in the parentView");
-            }
-
-            @Override
-            public boolean matchesSafely(View view) {
-                if (!(view.getParent() instanceof ViewGroup)) {
-                    return parentMatcher.matches(view.getParent());
-                }
-
-                if (view instanceof EditText) {
-                    ViewGroup group = (ViewGroup) view.getParent();
-                    return parentMatcher.matches(view.getParent()) && group.getChildAt(0).equals(view);
-                }
-
-                return false;
-            }
-        };
+    public static ViewInteraction editTextIn(final @IdRes int textInputLayoutId) {
+        return onView(allOf(isDescendantOfA(withId(textInputLayoutId)), isAssignableFrom(EditText.class)));
     }
 }

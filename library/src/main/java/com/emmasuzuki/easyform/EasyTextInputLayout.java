@@ -22,28 +22,26 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.util.AttributeSet;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 
-public class EasyTextInputLayout extends TextInputLayout {
+import static com.emmasuzuki.easyform.FormValidator.INVALID_VALUE;
+
+public class EasyTextInputLayout extends TextInputLayout implements View.OnFocusChangeListener {
 
     private static final String ANDROID_RES_NAMESPACE = "http://schemas.android.com/apk/res/android";
-    private static final int INVALID_VALUE = -1;
 
     private EditText easyFormEditText;
+    private FormValidator validator;
+    private EasyFormTextListener easyFormTextListener;
 
     private int editTextInputType;
     private float editTextTextSize;
     private int editTextColor;
-    private ErrorType errorType;
-    private String regexPattern = "";
-    private float minValue = Float.MIN_VALUE;
-    private float maxValue = Float.MAX_VALUE;
-    private int minChars = 0;
-    private int maxChars = Integer.MAX_VALUE;
     private String errorMessage;
 
-    private EasyFormTextWatcher easyFormTextWatcher = new EasyFormTextWatcher(this) {
+    private EasyFormTextWatcher textWatcher = new EasyFormTextWatcher(this) {
 
         @Override
         protected void renderError() {
@@ -78,6 +76,21 @@ public class EasyTextInputLayout extends TextInputLayout {
         }
     }
 
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (!hasFocus) {
+            boolean isValid = validator.isValid(easyFormEditText.getText());
+            setError(isValid ? null : errorMessage);
+            setErrorEnabled(!isValid);
+
+            if (isValid) {
+                easyFormTextListener.onFilled(this);
+            } else {
+                easyFormTextListener.onError(this);
+            }
+        }
+    }
+
     @NonNull
     @Override
     public EditText getEditText() {
@@ -85,40 +98,48 @@ public class EasyTextInputLayout extends TextInputLayout {
     }
 
     public ErrorType getErrorType() {
-        return errorType;
+        return validator.getErrorType();
     }
 
     public void setRegexPattern(String regexPattern) {
-        this.regexPattern = regexPattern;
-        easyFormTextWatcher.setRegexPattern(regexPattern);
+        validator.setRegexPattern(regexPattern);
     }
 
     public void setMinValue(int minValue) {
-        this.minValue = minValue;
-        easyFormTextWatcher.setMinValue(minValue);
+        validator.setMinValue(minValue);
     }
 
     public void setMaxValue(int maxValue) {
-        this.maxValue = maxValue;
-        easyFormTextWatcher.setMaxValue(maxValue);
+        validator.setMaxValue(maxValue);
     }
 
     public void setMinChars(int minChars) {
-        this.minChars = minChars;
-        easyFormTextWatcher.setMinChars(minChars);
+        validator.setMinChars(minChars);
     }
 
     public void setMaxChars(int maxChars) {
-        this.maxChars = maxChars;
-        easyFormTextWatcher.setMaxChars(maxChars);
+        validator.setMaxChars(maxChars);
     }
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
-    void setEasyFormEditTextListener(EasyFormTextWatcher.OnEasyFormTextListener easyFormEditTextListener) {
-        easyFormTextWatcher.setEasyFormTextListener(easyFormEditTextListener);
+    void setShowErrorOn(ShowErrorOn showErrorOn) {
+        if (validator.getErrorType() != ErrorType.NONE) {
+            if (showErrorOn == ShowErrorOn.CHANGE) {
+                easyFormEditText.addTextChangedListener(textWatcher);
+                easyFormEditText.setOnFocusChangeListener(null);
+            } else {
+                easyFormEditText.removeTextChangedListener(textWatcher);
+                easyFormEditText.setOnFocusChangeListener(this);
+            }
+        }
+    }
+
+    void setEasyFormEditTextListener(EasyFormTextListener easyFormEditTextListener) {
+        this.easyFormTextListener = easyFormEditTextListener;
+        textWatcher.setEasyFormTextListener(easyFormEditTextListener);
     }
 
     @Override
@@ -135,13 +156,13 @@ public class EasyTextInputLayout extends TextInputLayout {
 
         if (typedArray != null) {
             int type = typedArray.getInt(R.styleable.EasyFormEditText_errorType, INVALID_VALUE);
-            errorType = ErrorType.valueOf(type);
+            ErrorType errorType = ErrorType.valueOf(type);
             errorMessage = typedArray.getString(R.styleable.EasyFormEditText_errorMessage);
-            regexPattern = typedArray.getString(R.styleable.EasyFormEditText_regexPattern);
-            minValue = typedArray.getFloat(R.styleable.EasyFormEditText_minValue, Float.MIN_VALUE);
-            maxValue = typedArray.getFloat(R.styleable.EasyFormEditText_maxValue, Float.MAX_VALUE);
-            minChars = typedArray.getInt(R.styleable.EasyFormEditText_minChars, INVALID_VALUE);
-            maxChars = typedArray.getInt(R.styleable.EasyFormEditText_maxChars, INVALID_VALUE);
+            String regexPattern = typedArray.getString(R.styleable.EasyFormEditText_regexPattern);
+            float minValue = typedArray.getFloat(R.styleable.EasyFormEditText_minValue, INVALID_VALUE);
+            float maxValue = typedArray.getFloat(R.styleable.EasyFormEditText_maxValue, INVALID_VALUE);
+            int minChars = typedArray.getInt(R.styleable.EasyFormEditText_minChars, INVALID_VALUE);
+            int maxChars = typedArray.getInt(R.styleable.EasyFormEditText_maxChars, INVALID_VALUE);
 
             editTextTextSize = typedArray.getDimensionPixelSize(R.styleable.EasyFormEditText_textSize, 0);
             editTextColor = typedArray.getColor(R.styleable.EasyFormEditText_textColor, 0);
@@ -150,31 +171,11 @@ public class EasyTextInputLayout extends TextInputLayout {
                 errorMessage = "Error";
             }
 
-            setUpErrorProperties();
+            validator = new FormValidator(errorType, regexPattern, minValue, maxValue, minChars, maxChars);
+            textWatcher.setValidator(validator);
 
             typedArray.recycle();
         }
-    }
-
-    private void setUpErrorProperties() {
-        if (minValue > Float.MIN_VALUE || maxValue < Float.MAX_VALUE) {
-            errorType = ErrorType.VALUE;
-            easyFormTextWatcher.setMinValue(minValue);
-            easyFormTextWatcher.setMaxValue(maxValue);
-        }
-
-        if (minChars != INVALID_VALUE || maxChars != INVALID_VALUE) {
-            errorType = ErrorType.CHARS;
-            easyFormTextWatcher.setMinChars(Math.max(0, minChars));
-            easyFormTextWatcher.setMaxChars(maxChars == INVALID_VALUE ? Integer.MAX_VALUE : maxChars);
-        }
-
-        if (regexPattern != null) {
-            errorType = ErrorType.PATTERN;
-            easyFormTextWatcher.setRegexPattern(regexPattern);
-        }
-
-        easyFormTextWatcher.setErrorType(errorType);
     }
 
     private void addEasyEditText() {
@@ -195,10 +196,6 @@ public class EasyTextInputLayout extends TextInputLayout {
 
         LayoutParams params = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         easyFormEditText.setLayoutParams(params);
-
-        if (errorType != ErrorType.NONE) {
-            easyFormEditText.addTextChangedListener(easyFormTextWatcher);
-        }
 
         addView(easyFormEditText);
     }

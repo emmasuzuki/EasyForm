@@ -17,60 +17,25 @@
 package com.emmasuzuki.easyform;
 
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
-
-import java.util.regex.Pattern;
 
 abstract class EasyFormTextWatcher implements TextWatcher {
 
     private View delegateView;
+    private FormValidator validator;
+    private EasyFormTextListener easyFormTextListener;
 
-    private ErrorType errorType;
-    private String regexPattern;
-    private float minValue;
-    private float maxValue;
-    private int minChars;
-    private int maxChars;
-    private OnEasyFormTextListener easyFormTextListener;
-
-    interface OnEasyFormTextListener {
-        void onFilled(View view);
-
-        void onError(View view);
-    }
-
-    public EasyFormTextWatcher(View delegateView) {
+    EasyFormTextWatcher(View delegateView) {
         this.delegateView = delegateView;
     }
 
-    void setErrorType(ErrorType errorType) {
-        this.errorType = errorType;
-    }
-
-    void setRegexPattern(String regexPattern) {
-        this.regexPattern = regexPattern;
-    }
-
-    void setMinValue(float minValue) {
-        this.minValue = minValue;
-    }
-
-    void setMaxValue(float maxValue) {
-        this.maxValue = maxValue;
-    }
-
-    void setMinChars(int minChars) {
-        this.minChars = minChars;
-    }
-
-    void setMaxChars(int maxChars) {
-        this.maxChars = maxChars;
-    }
-
-    void setEasyFormTextListener(OnEasyFormTextListener easyFormTextListener) {
+    void setEasyFormTextListener(EasyFormTextListener easyFormTextListener) {
         this.easyFormTextListener = easyFormTextListener;
+    }
+
+    void setValidator(FormValidator validator) {
+        this.validator = validator;
     }
 
     @Override
@@ -83,45 +48,19 @@ abstract class EasyFormTextWatcher implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-        boolean hasError = false;
+        boolean isValid = validator.isValid(s);
 
-        switch (errorType) {
-            case EMPTY:
-                hasError = TextUtils.isEmpty(s.toString());
-                break;
-
-            case PATTERN:
-                hasError = !Pattern.compile(regexPattern).matcher(s.toString()).matches();
-                break;
-
-            case VALUE:
-                try {
-                    float value = Float.parseFloat(s.toString());
-                    hasError = value < minValue || value > maxValue;
-                } catch (Exception e) {
-                    hasError = true;
-                }
-                break;
-
-            case CHARS:
-                hasError = s.length() < minChars || s.length() > maxChars;
-                break;
-
-            default:
-                break;
-        }
-
-        if (hasError) {
-            renderError();
-
-            if (easyFormTextListener != null) {
-                easyFormTextListener.onError(delegateView);
-            }
-        } else {
+        if (isValid) {
             clearError();
 
             if (easyFormTextListener != null) {
                 easyFormTextListener.onFilled(delegateView);
+            }
+        } else {
+            renderError();
+
+            if (easyFormTextListener != null) {
+                easyFormTextListener.onError(delegateView);
             }
         }
     }

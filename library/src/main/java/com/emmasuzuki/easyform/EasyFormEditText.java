@@ -19,21 +19,19 @@ package com.emmasuzuki.easyform;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.EditText;
 
-public class EasyFormEditText extends EditText {
+import static com.emmasuzuki.easyform.FormValidator.INVALID_VALUE;
 
-    private static final int INVALID_VALUE = -1;
+public class EasyFormEditText extends EditText implements View.OnFocusChangeListener {
 
-    private ErrorType errorType;
-    private String regexPattern = "";
-    private float minValue = Float.MIN_VALUE;
-    private float maxValue = Float.MAX_VALUE;
-    private int minChars = 0;
-    private int maxChars = Integer.MAX_VALUE;
+    private FormValidator validator;
+    private EasyFormTextListener easyFormTextListener;
+
     private String errorMessage;
 
-    private EasyFormTextWatcher easyFormTextWatcher = new EasyFormTextWatcher(this) {
+    private EasyFormTextWatcher textWatcher = new EasyFormTextWatcher(this) {
 
         @Override
         protected void renderError() {
@@ -66,46 +64,68 @@ public class EasyFormEditText extends EditText {
         }
     }
 
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (!hasFocus) {
+            EditText editText = (EditText) v;
+            boolean isValid = validator.isValid(editText.getText());
+            setError(isValid ? null : errorMessage);
+
+            if (isValid) {
+                easyFormTextListener.onFilled(this);
+            } else {
+                easyFormTextListener.onError(this);
+            }
+        }
+    }
+
     public ErrorType getErrorType() {
-        return errorType;
+        return validator.getErrorType();
+    }
+
+    public void setErrorType(ErrorType errorType) {
+        validator.setErrorType(errorType);
     }
 
     public void setRegexPattern(String regexPattern) {
-        this.regexPattern = regexPattern;
-        setErrorType(ErrorType.PATTERN);
-        easyFormTextWatcher.setRegexPattern(regexPattern);
+        validator.setRegexPattern(regexPattern);
     }
 
     public void setMinValue(int minValue) {
-        this.minValue = minValue;
-        setErrorType(ErrorType.VALUE);
-        easyFormTextWatcher.setMinValue(minValue);
+        validator.setMinValue(minValue);
     }
 
     public void setMaxValue(int maxValue) {
-        this.maxValue = maxValue;
-        setErrorType(ErrorType.VALUE);
-        easyFormTextWatcher.setMaxValue(maxValue);
+        validator.setMaxValue(maxValue);
     }
 
     public void setMinChars(int minChars) {
-        this.minChars = minChars;
-        setErrorType(ErrorType.CHARS);
-        easyFormTextWatcher.setMinChars(minChars);
+        validator.setMinChars(minChars);
     }
 
     public void setMaxChars(int maxChars) {
-        this.maxChars = maxChars;
-        setErrorType(ErrorType.CHARS);
-        easyFormTextWatcher.setMaxChars(maxChars);
+        validator.setMaxChars(maxChars);
     }
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
     }
 
-    void setEasyFormEditTextListener(EasyFormTextWatcher.OnEasyFormTextListener easyFormEditTextListener) {
-        easyFormTextWatcher.setEasyFormTextListener(easyFormEditTextListener);
+    void setShowErrorOn(ShowErrorOn showErrorOn) {
+        if (validator.getErrorType() != ErrorType.NONE) {
+            if (showErrorOn == ShowErrorOn.CHANGE) {
+                addTextChangedListener(textWatcher);
+                setOnFocusChangeListener(null);
+            } else {
+                removeTextChangedListener(textWatcher);
+                setOnFocusChangeListener(this);
+            }
+        }
+    }
+
+    void setEasyFormEditTextListener(EasyFormTextListener easyFormEditTextListener) {
+        this.easyFormTextListener = easyFormEditTextListener;
+        textWatcher.setEasyFormTextListener(easyFormEditTextListener);
     }
 
     private void setPropertyFromAttributes(AttributeSet attrs) {
@@ -113,51 +133,23 @@ public class EasyFormEditText extends EditText {
 
         if (typedArray != null) {
             int type = typedArray.getInt(R.styleable.EasyFormEditText_errorType, -1);
-            errorType = ErrorType.valueOf(type);
+            ErrorType errorType = ErrorType.valueOf(type);
             errorMessage = typedArray.getString(R.styleable.EasyFormEditText_errorMessage);
-            regexPattern = typedArray.getString(R.styleable.EasyFormEditText_regexPattern);
-            minValue = typedArray.getFloat(R.styleable.EasyFormEditText_minValue, Float.MIN_VALUE);
-            maxValue = typedArray.getFloat(R.styleable.EasyFormEditText_maxValue, Float.MAX_VALUE);
-            minChars = typedArray.getInt(R.styleable.EasyFormEditText_minChars, INVALID_VALUE);
-            maxChars = typedArray.getInt(R.styleable.EasyFormEditText_maxChars, INVALID_VALUE);
+            String regexPattern = typedArray.getString(R.styleable.EasyFormEditText_regexPattern);
+            float minValue = typedArray.getFloat(R.styleable.EasyFormEditText_minValue, INVALID_VALUE);
+            float maxValue = typedArray.getFloat(R.styleable.EasyFormEditText_maxValue, INVALID_VALUE);
+            int minChars = typedArray.getInt(R.styleable.EasyFormEditText_minChars, INVALID_VALUE);
+            int maxChars = typedArray.getInt(R.styleable.EasyFormEditText_maxChars, INVALID_VALUE);
 
             if (errorMessage == null) {
                 errorMessage = "Error";
             }
 
-            setUpErrorProperties();
+            validator = new FormValidator(errorType, regexPattern, minValue, maxValue, minChars, maxChars);
+
+            textWatcher.setValidator(validator);
 
             typedArray.recycle();
         }
-
-        if (errorType != ErrorType.NONE) {
-            addTextChangedListener(easyFormTextWatcher);
-        }
-    }
-
-    private void setUpErrorProperties() {
-        if (minValue > Float.MIN_VALUE || maxValue < Float.MAX_VALUE) {
-            errorType = ErrorType.VALUE;
-            easyFormTextWatcher.setMinValue(minValue);
-            easyFormTextWatcher.setMaxValue(maxValue);
-        }
-
-        if (minChars != INVALID_VALUE || maxChars != INVALID_VALUE) {
-            errorType = ErrorType.CHARS;
-            easyFormTextWatcher.setMinChars(Math.max(0, minChars));
-            easyFormTextWatcher.setMaxChars(maxChars == INVALID_VALUE ? Integer.MAX_VALUE : maxChars);
-        }
-
-        if (regexPattern != null) {
-            errorType = ErrorType.PATTERN;
-            easyFormTextWatcher.setRegexPattern(regexPattern);
-        }
-
-        easyFormTextWatcher.setErrorType(errorType);
-    }
-
-    private void setErrorType(ErrorType errorType) {
-        this.errorType = errorType;
-        easyFormTextWatcher.setErrorType(errorType);
     }
 }
