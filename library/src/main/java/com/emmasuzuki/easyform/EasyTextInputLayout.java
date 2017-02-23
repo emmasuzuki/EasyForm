@@ -159,8 +159,8 @@ public class EasyTextInputLayout extends TextInputLayout implements View.OnFocus
             ErrorType errorType = ErrorType.valueOf(type);
             errorMessage = typedArray.getString(R.styleable.EasyFormEditText_errorMessage);
             String regexPattern = typedArray.getString(R.styleable.EasyFormEditText_regexPattern);
-            float minValue = typedArray.getFloat(R.styleable.EasyFormEditText_minValue, Float.MIN_VALUE);
-            float maxValue = typedArray.getFloat(R.styleable.EasyFormEditText_maxValue, Float.MAX_VALUE);
+            float minValue = typedArray.getFloat(R.styleable.EasyFormEditText_minValue, INVALID_VALUE);
+            float maxValue = typedArray.getFloat(R.styleable.EasyFormEditText_maxValue, INVALID_VALUE);
             int minChars = typedArray.getInt(R.styleable.EasyFormEditText_minChars, INVALID_VALUE);
             int maxChars = typedArray.getInt(R.styleable.EasyFormEditText_maxChars, INVALID_VALUE);
 

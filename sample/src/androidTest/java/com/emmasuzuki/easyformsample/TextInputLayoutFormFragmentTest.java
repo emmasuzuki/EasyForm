@@ -47,9 +47,9 @@ public class TextInputLayoutFormFragmentTest {
     private Matcher<View> valueCheckInputMatcher = withId(R.id.value_check_input);
 
     private ViewInteraction submitButton = onView(withId(R.id.submit_button));
-    private ViewInteraction emptyCheckEditText = onView(editTextIn(emptyCheckInputMatcher));
-    private ViewInteraction digitCheckEditText = onView(editTextIn(digitCheckInputMatcher));
-    private ViewInteraction valueCheckEditText = onView(editTextIn(valueCheckInputMatcher));
+    private ViewInteraction emptyCheckEditText = editTextIn(R.id.empty_check_input);
+    private ViewInteraction digitCheckEditText = editTextIn(R.id.digit_check_input);
+    private ViewInteraction valueCheckEditText = editTextIn(R.id.value_check_input);
 
     public TextInputLayoutFormFragmentTest(Activity activity) {
         this.activity = activity;

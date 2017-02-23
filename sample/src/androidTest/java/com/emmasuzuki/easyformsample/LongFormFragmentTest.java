@@ -51,12 +51,12 @@ public class LongFormFragmentTest {
     private Matcher<View> confirmPasswordInputMatcher = withId(R.id.confirm_password_input);
 
     private ViewInteraction submitButton = onView(withId(R.id.submit_button));
-    private ViewInteraction firstNameEditText = onView(editTextIn(firstNameInputMatcher));
-    private ViewInteraction lastNameEditText = onView(editTextIn(lastNameInputMatcher));
-    private ViewInteraction employeeIdEditText = onView(editTextIn(employeeIdInputMatcher));
-    private ViewInteraction accountEditText = onView(editTextIn(accountInputMatcher));
-    private ViewInteraction passwordEditText = onView(editTextIn(passwordInputMatcher));
-    private ViewInteraction confirmPasswordEditText = onView(editTextIn(confirmPasswordInputMatcher));
+    private ViewInteraction firstNameEditText = editTextIn(R.id.first_name_input);
+    private ViewInteraction lastNameEditText = editTextIn(R.id.last_name_input);
+    private ViewInteraction employeeIdEditText = editTextIn(R.id.employee_id_input);
+    private ViewInteraction accountEditText = editTextIn(R.id.account_name_input);
+    private ViewInteraction passwordEditText = editTextIn(R.id.password_input);
+    private ViewInteraction confirmPasswordEditText = editTextIn(R.id.confirm_password_input);
 
     public LongFormFragmentTest(Activity activity) {
         this.activity = activity;
@@ -68,32 +68,41 @@ public class LongFormFragmentTest {
     }
 
     public void testFirstNameField(String str, boolean valid) {
-        firstNameEditText.perform(clearText(), typeText(str), closeSoftKeyboard());
+        // NOTE: typeText("") doesn't touch view.
+        // Add click before typeText to enforce focus
+        firstNameEditText.perform(click(), clearText(), typeText(str));
+        // Then unfocus firstNameEditText
+        lastNameEditText.perform(click(), closeSoftKeyboard());
         checkError(firstNameInputMatcher, R.string.error_message_empty, valid);
     }
 
     public void testLastNameField(String str, boolean valid) {
-        lastNameEditText.perform(clearText(), typeText(str), closeSoftKeyboard());
+        lastNameEditText.perform(click(), clearText(), typeText(str));
+        firstNameEditText.perform(click(), closeSoftKeyboard());
         checkError(lastNameInputMatcher, R.string.error_message_empty, valid);
     }
 
     public void testEmployeeIdField(String str, boolean valid) {
-        employeeIdEditText.perform(clearText(), typeText(str), closeSoftKeyboard());
+        employeeIdEditText.perform(click(), clearText(), typeText(str));
+        firstNameEditText.perform(click(), closeSoftKeyboard());
         checkError(employeeIdInputMatcher, R.string.error_message_employee_id, valid);
     }
 
     public void testAccountField(String str, boolean valid) {
-        accountEditText.perform(clearText(), typeText(str), closeSoftKeyboard());
+        accountEditText.perform(click(), clearText(), typeText(str));
+        firstNameEditText.perform(click(), closeSoftKeyboard());
         checkError(accountInputMatcher, R.string.error_message_account, valid);
     }
 
     public void testPasswordField(String str, boolean valid) {
-        passwordEditText.perform(clearText(), typeText(str), closeSoftKeyboard());
+        passwordEditText.perform(click(), clearText(), typeText(str));
+        firstNameEditText.perform(click(), closeSoftKeyboard());
         checkError(passwordInputMatcher, R.string.error_message_password, valid);
     }
 
     public void testConfirmPasswordField(String str, boolean valid) {
-        confirmPasswordEditText.perform(clearText(), typeText(str), closeSoftKeyboard());
+        confirmPasswordEditText.perform(click(), clearText(), typeText(str));
+        firstNameEditText.perform(click(), closeSoftKeyboard());
         checkError(confirmPasswordInputMatcher, R.string.error_message_password, valid);
     }
 

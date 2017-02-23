@@ -24,6 +24,8 @@ import org.junit.runner.RunWith;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+import static com.emmasuzuki.easyform.FormValidator.INVALID_VALUE;
+import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertTrue;
 import static org.powermock.api.mockito.PowerMockito.mockStatic;
@@ -41,6 +43,42 @@ public class FormValidatorTest {
     @Before
     public void setUpBeforeEach() {
         mockStatic(TextUtils.class);
+    }
+
+    @Test
+    public void testConstructor_SetErrorType() {
+        FormValidator validator = new FormValidator(ErrorType.EMPTY, null, INVALID_VALUE, INVALID_VALUE, INVALID_VALUE, INVALID_VALUE);
+        assertEquals(validator.getErrorType(), ErrorType.EMPTY);
+    }
+
+    @Test
+    public void testConstructor_Set_RegexPatternError() {
+        FormValidator validator = new FormValidator(null, "[0-9]+", INVALID_VALUE, INVALID_VALUE, INVALID_VALUE, INVALID_VALUE);
+        assertEquals(validator.getErrorType(), ErrorType.PATTERN);
+    }
+
+    @Test
+    public void testConstructor_Set_ValueError_MinValue() {
+        FormValidator validator = new FormValidator(null, null, 0.3f, INVALID_VALUE, INVALID_VALUE, INVALID_VALUE);
+        assertEquals(validator.getErrorType(), ErrorType.VALUE);
+    }
+
+    @Test
+    public void testConstructor_Set_ValueError_MaxValue() {
+        FormValidator validator = new FormValidator(null, null, INVALID_VALUE, 0.6f, INVALID_VALUE, INVALID_VALUE);
+        assertEquals(validator.getErrorType(), ErrorType.VALUE);
+    }
+
+    @Test
+    public void testConstructor_Set_CharError_MinChar() {
+        FormValidator validator = new FormValidator(null, null, INVALID_VALUE, INVALID_VALUE, 1, INVALID_VALUE);
+        assertEquals(validator.getErrorType(), ErrorType.CHARS);
+    }
+
+    @Test
+    public void testConstructor_Set_CharError_MaxChar() {
+        FormValidator validator = new FormValidator(null, null, INVALID_VALUE, INVALID_VALUE, INVALID_VALUE, 5);
+        assertEquals(validator.getErrorType(), ErrorType.CHARS);
     }
 
     @Test

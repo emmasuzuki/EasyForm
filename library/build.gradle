@@ -49,4 +49,4 @@ dependencies {
     testCompile "org.powermock:powermock-classloading-xstream:1.6.4"
 }
 
-//apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
+apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
