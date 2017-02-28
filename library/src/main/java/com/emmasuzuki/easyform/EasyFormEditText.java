@@ -68,14 +68,18 @@ public class EasyFormEditText extends EditText implements View.OnFocusChangeList
     public void onFocusChange(View v, boolean hasFocus) {
         if (!hasFocus) {
             EditText editText = (EditText) v;
-            boolean isValid = validator.isValid(editText.getText());
-            setError(isValid ? null : errorMessage);
+            validate(editText.getText());
+        }
+    }
 
-            if (isValid) {
-                easyFormTextListener.onFilled(this);
-            } else {
-                easyFormTextListener.onError(this);
-            }
+    void validate(CharSequence str) {
+        boolean isValid = validator.isValid(str);
+        setError(isValid ? null : errorMessage);
+
+        if (isValid) {
+            easyFormTextListener.onFilled(this);
+        } else {
+            easyFormTextListener.onError(this);
         }
     }
 

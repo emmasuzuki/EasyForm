@@ -19,19 +19,34 @@ package com.emmasuzuki.easyform;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
-import android.util.SparseBooleanArray;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-public class EasyForm extends RelativeLayout implements EasyFormTextListener {
+public class EasyForm extends RelativeLayout implements EasyFormTextListener, View.OnClickListener {
 
     private Button submitButton;
     private ShowErrorOn showErrorOn = ShowErrorOn.CHANGE;
 
-    private SparseBooleanArray fieldCheckList;
+    private SparseArray<FormInputs> fieldCheckList;
     private int submitButtonId;
+
+    private static class FormInputs {
+
+        private View view;
+        boolean isValid;
+
+        FormInputs(View view, boolean isValid) {
+            this.view = view;
+            this.isValid = isValid;
+        }
+
+        public View getView() {
+            return view;
+        }
+    }
 
     public EasyForm(Context context) {
         super(context);
@@ -54,6 +69,7 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener {
         super.onFinishInflate();
 
         submitButton = (Button) findViewById(submitButtonId);
+        submitButton.setOnClickListener(this);
 
         initializeFieldCheckList(this);
 
@@ -62,22 +78,50 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener {
 
     @Override
     public void onFilled(View view) {
-        fieldCheckList.put(view.getId(), true);
+        fieldCheckList.get(view.getId()).isValid = true;
 
-        if (isFieldCheckListAllTrue()) {
-            enableSubmitButton(true);
+        if (showErrorOn == ShowErrorOn.CHANGE) {
+            if (isFieldCheckListAllTrue()) {
+                enableSubmitButton(true);
+            }
+        } else {
+            if (isLastFieldToFill()) {
+                enableSubmitButton(true);
+            }
         }
     }
 
     @Override
     public void onError(View view) {
-        fieldCheckList.put(view.getId(), false);
+        fieldCheckList.get(view.getId()).isValid = false;
 
-        enableSubmitButton(false);
+        if (showErrorOn == ShowErrorOn.CHANGE || !isLastFieldToFill()) {
+            enableSubmitButton(false);
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        // For unfocus case, validate on button click because button will be enabled
+        // before the last field becomes valid.
+        if (v.getId() == submitButtonId && showErrorOn == ShowErrorOn.UNFOCUS) {
+            for (int i = 0; i < fieldCheckList.size(); i++) {
+                FormInputs formInputs = fieldCheckList.get(fieldCheckList.keyAt(i));
+                View view = formInputs.getView();
+                if (view instanceof EasyFormEditText) {
+                    EasyFormEditText editText = (EasyFormEditText) view;
+                    editText.validate(editText.getText());
+                } else {
+                    EasyTextInputLayout textInputLayout = (EasyTextInputLayout) view;
+                    textInputLayout.validate();
+                }
+            }
+        }
     }
 
     private void initializeFieldCheckList(ViewGroup viewGroup) {
-        fieldCheckList = new SparseBooleanArray(getChildCount());
+        fieldCheckList = new SparseArray<>(getChildCount());
+
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View view = viewGroup.getChildAt(i);
             if (view instanceof EasyTextInputLayout) {
@@ -85,7 +129,7 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener {
                 if (easyTextInputLayout.getErrorType() != ErrorType.NONE) {
                     easyTextInputLayout.setEasyFormEditTextListener(this);
                     easyTextInputLayout.setShowErrorOn(showErrorOn);
-                    fieldCheckList.put(easyTextInputLayout.getId(), false);
+                    fieldCheckList.put(easyTextInputLayout.getId(), new FormInputs(easyTextInputLayout, false));
                 }
 
             } else if (view instanceof ViewGroup) {
@@ -96,7 +140,7 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener {
                 if (easyFormEditText.getErrorType() != ErrorType.NONE) {
                     easyFormEditText.setEasyFormEditTextListener(this);
                     easyFormEditText.setShowErrorOn(showErrorOn);
-                    fieldCheckList.put(easyFormEditText.getId(), false);
+                    fieldCheckList.put(easyFormEditText.getId(), new FormInputs(easyFormEditText, false));
                 }
             }
         }
@@ -116,12 +160,26 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener {
 
     private boolean isFieldCheckListAllTrue() {
         for (int i = 0; i < fieldCheckList.size(); i++) {
-            if (!fieldCheckList.get(fieldCheckList.keyAt(i), true)) {
+            FormInputs formInputs = fieldCheckList.get(fieldCheckList.keyAt(i));
+            if (!formInputs.isValid) {
                 return false;
             }
         }
 
         return true;
+    }
+
+    private boolean isLastFieldToFill() {
+        int filled = 0;
+
+        for (int i = 0; i < fieldCheckList.size(); i++) {
+            FormInputs formInputs = fieldCheckList.get(fieldCheckList.keyAt(i));
+            if (formInputs.isValid) {
+                filled++;
+            }
+        }
+
+        return filled == fieldCheckList.size() - 1;
     }
 
     private void enableSubmitButton(boolean enable) {

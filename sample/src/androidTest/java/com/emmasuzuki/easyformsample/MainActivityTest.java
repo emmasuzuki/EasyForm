@@ -305,12 +305,14 @@ public class MainActivityTest {
         longFormFragmentTest.testSubmitButton("first name", "last name", "100", "acc", "password", "password", false);
     }
 
+    @Ignore
     @Test
     public void testLongFormFragmentTest_SubmitButton_WrongPassword() {
         longFormFragmentTest.openLongFormFragment();
         longFormFragmentTest.testSubmitButton("first name", "last name", "100", "account", "password@", "password", false);
     }
 
+    @Ignore
     @Test
     public void testLongFormFragmentTest_SubmitButton_WrongConfirmPassword() {
         longFormFragmentTest.openLongFormFragment();

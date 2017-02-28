@@ -79,15 +79,19 @@ public class EasyTextInputLayout extends TextInputLayout implements View.OnFocus
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (!hasFocus) {
-            boolean isValid = validator.isValid(easyFormEditText.getText());
-            setError(isValid ? null : errorMessage);
-            setErrorEnabled(!isValid);
+            validate();
+        }
+    }
 
-            if (isValid) {
-                easyFormTextListener.onFilled(this);
-            } else {
-                easyFormTextListener.onError(this);
-            }
+    void validate() {
+        boolean isValid = validator.isValid(easyFormEditText.getText());
+        setError(isValid ? null : errorMessage);
+        setErrorEnabled(!isValid);
+
+        if (isValid) {
+            easyFormTextListener.onFilled(this);
+        } else {
+            easyFormTextListener.onError(this);
         }
     }
 
