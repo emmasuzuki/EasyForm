@@ -37,7 +37,7 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static com.emmasuzuki.easyformsample.ErrorTextMatcher.editTextIn;
 import static com.emmasuzuki.easyformsample.ErrorTextMatcher.hasErrorText;
 import static com.emmasuzuki.easyformsample.ErrorTextMatcher.hasNoErrorText;
-import static org.hamcrest.Matchers.not;
+import static org.hamcrest.core.IsNot.not;
 
 public class LongFormFragmentTest {
 
@@ -106,20 +106,45 @@ public class LongFormFragmentTest {
         checkError(confirmPasswordInputMatcher, R.string.error_message_password, valid);
     }
 
-    public void testSubmitButton(String firstName, String lastName, String employeeId, String account,
-                                  String password, String confirmPassword, boolean valid) {
-        firstNameEditText.perform(clearText(), typeText(firstName));
-        lastNameEditText.perform(clearText(), typeText(lastName));
-        employeeIdEditText.perform(clearText(), typeText(employeeId));
-        accountEditText.perform(clearText(), typeText(account));
-        passwordEditText.perform(clearText(), typeText(password));
-        confirmPasswordEditText.perform(clearText(), typeText(confirmPassword), closeSoftKeyboard());
+    public void testSubmitButton_LastField_Valid() {
+        // Input everything except employeeId
+        firstNameEditText.perform(clearText(), typeText("first name"));
+        lastNameEditText.perform(clearText(), typeText("last name"));
+        accountEditText.perform(clearText(), typeText("account"));
+        passwordEditText.perform(clearText(), typeText("password"));
+        confirmPasswordEditText.perform(clearText(), typeText("password"), closeSoftKeyboard());
+        submitButton.check(matches(not(isEnabled())));
 
-        if (valid) {
-            submitButton.check(matches(isEnabled()));
-        } else {
-            submitButton.check(matches(not(isEnabled())));
-        }
+        // Last field to fill, when cursor is on the last field, submitButton should be enabled
+        employeeIdEditText.perform(click());
+        submitButton.check(matches(isEnabled()));
+
+        // Fill a valid value in employeeId field and click submitButton. submitButton should be kept enabled
+        employeeIdEditText.perform(clearText(), typeText("100"), closeSoftKeyboard());
+        submitButton.perform(click());
+        submitButton.check(matches(isEnabled()));
+    }
+
+    public void testSubmitButton_LastField_Invalid() {
+        // Input everything except employeeId
+        firstNameEditText.perform(clearText(), typeText("first name"));
+        lastNameEditText.perform(clearText(), typeText("last name"));
+        accountEditText.perform(clearText(), typeText("account"));
+        passwordEditText.perform(clearText(), typeText("password"));
+        confirmPasswordEditText.perform(clearText(), typeText("password"), closeSoftKeyboard());
+        submitButton.check(matches(not(isEnabled())));
+
+        // Last field to fill, when cursor is on the last field, submitButton should be enabled
+        employeeIdEditText.perform(click());
+        submitButton.check(matches(isEnabled()));
+
+        // Fill a invalid value in employeeId field and click submitButton.
+        employeeIdEditText.perform(clearText(), typeText("99"), closeSoftKeyboard());
+        submitButton.perform(click());
+
+        // submitButton should be kept enabled but employeeIdEditText should have error text
+        checkError(employeeIdInputMatcher, R.string.error_message_employee_id, false);
+        submitButton.check(matches(isEnabled()));
     }
 
     private void checkError(Matcher<View> matcher, @StringRes int errorMessageId, boolean valid) {

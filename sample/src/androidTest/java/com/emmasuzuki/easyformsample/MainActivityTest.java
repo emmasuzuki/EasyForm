@@ -19,7 +19,6 @@ package com.emmasuzuki.easyformsample;
 import android.support.test.rule.ActivityTestRule;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -265,57 +264,21 @@ public class MainActivityTest {
         longFormFragmentTest.testConfirmPasswordField("abcdefghijkl", true);
     }
 
-    // TODO: Fix the last entry behavior for unfocus
-    @Ignore
     @Test
     public void testLongFormFragmentTest_ConfirmPasswordField_Failure_13Chars() {
         longFormFragmentTest.openLongFormFragment();
         longFormFragmentTest.testConfirmPasswordField("abcdefghijklm", false);
     }
 
-    // TODO: Fix the last entry behavior for unfocus
-    @Ignore
     @Test
-    public void testLongFormFragmentTest_SubmitButton_Success() {
+    public void testLongFormFragmentTest_SubmitButton_LastField_Valid() {
         longFormFragmentTest.openLongFormFragment();
-        longFormFragmentTest.testSubmitButton("first name", "last name", "100", "account", "password", "password", true);
+        longFormFragmentTest.testSubmitButton_LastField_Valid();
     }
 
     @Test
-    public void testLongFormFragmentTest_SubmitButton_MissingFirstName() {
+    public void testLongFormFragmentTest_SubmitButton_LastField_Invalid() {
         longFormFragmentTest.openLongFormFragment();
-        longFormFragmentTest.testSubmitButton("", "last name", "100", "account", "password", "password", false);
-    }
-
-    @Test
-    public void testLongFormFragmentTest_SubmitButton_MissingLastName() {
-        longFormFragmentTest.openLongFormFragment();
-        longFormFragmentTest.testSubmitButton("first name", "", "100", "account", "password", "password", false);
-    }
-
-    @Test
-    public void testLongFormFragmentTest_SubmitButton_WrongEmployeeId() {
-        longFormFragmentTest.openLongFormFragment();
-        longFormFragmentTest.testSubmitButton("first name", "last name", "99", "account", "password", "password", false);
-    }
-
-    @Test
-    public void testLongFormFragmentTest_SubmitButton_WrongAccount() {
-        longFormFragmentTest.openLongFormFragment();
-        longFormFragmentTest.testSubmitButton("first name", "last name", "100", "acc", "password", "password", false);
-    }
-
-    @Ignore
-    @Test
-    public void testLongFormFragmentTest_SubmitButton_WrongPassword() {
-        longFormFragmentTest.openLongFormFragment();
-        longFormFragmentTest.testSubmitButton("first name", "last name", "100", "account", "password@", "password", false);
-    }
-
-    @Ignore
-    @Test
-    public void testLongFormFragmentTest_SubmitButton_WrongConfirmPassword() {
-        longFormFragmentTest.openLongFormFragment();
-        longFormFragmentTest.testSubmitButton("first name", "last name", "100", "account", "password", "password@", false);
+        longFormFragmentTest.testSubmitButton_LastField_Invalid();
     }
 }
