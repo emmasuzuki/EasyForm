@@ -25,7 +25,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 
-public class EasyForm extends RelativeLayout implements EasyFormTextListener, View.OnClickListener {
+public class EasyForm extends RelativeLayout implements EasyFormTextListener {
 
     private Button submitButton;
     private ShowErrorOn showErrorOn = ShowErrorOn.CHANGE;
@@ -69,11 +69,10 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener, Vi
         super.onFinishInflate();
 
         submitButton = (Button) findViewById(submitButtonId);
-        submitButton.setOnClickListener(this);
 
         initializeFieldCheckList(this);
 
-        enableSubmitButton(isFieldCheckListAllTrue());
+        enableSubmitButton(isValid());
     }
 
     @Override
@@ -81,7 +80,7 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener, Vi
         fieldCheckList.get(view.getId()).isValid = true;
 
         if (showErrorOn == ShowErrorOn.CHANGE) {
-            if (isFieldCheckListAllTrue()) {
+            if (isValid()) {
                 enableSubmitButton(true);
             }
         } else {
@@ -100,11 +99,11 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener, Vi
         }
     }
 
-    @Override
-    public void onClick(View v) {
+
+    public void validate() {
         // For unfocus case, validate on button click because button will be enabled
         // before the last field becomes valid.
-        if (v.getId() == submitButtonId && showErrorOn == ShowErrorOn.UNFOCUS) {
+        if (showErrorOn == ShowErrorOn.UNFOCUS) {
             for (int i = 0; i < fieldCheckList.size(); i++) {
                 FormInputs formInputs = fieldCheckList.get(fieldCheckList.keyAt(i));
                 View view = formInputs.getView();
@@ -117,6 +116,17 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener, Vi
                 }
             }
         }
+    }
+
+    public boolean isValid() {
+        for (int i = 0; i < fieldCheckList.size(); i++) {
+            FormInputs formInputs = fieldCheckList.get(fieldCheckList.keyAt(i));
+            if (!formInputs.isValid) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private void initializeFieldCheckList(ViewGroup viewGroup) {
@@ -156,17 +166,6 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener, Vi
 
             typedArray.recycle();
         }
-    }
-
-    private boolean isFieldCheckListAllTrue() {
-        for (int i = 0; i < fieldCheckList.size(); i++) {
-            FormInputs formInputs = fieldCheckList.get(fieldCheckList.keyAt(i));
-            if (!formInputs.isValid) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     private boolean isLastFieldToFill() {
