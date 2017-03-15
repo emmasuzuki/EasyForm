@@ -18,13 +18,14 @@ package com.emmasuzuki.easyform;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
 
 import static com.emmasuzuki.easyform.FormValidator.INVALID_VALUE;
 
-public class EasyFormEditText extends EditText implements View.OnFocusChangeListener {
+public class EasyFormEditText extends AppCompatEditText implements View.OnFocusChangeListener {
 
     private FormValidator validator;
     private EasyFormTextListener easyFormTextListener;
