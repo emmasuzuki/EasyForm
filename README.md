@@ -10,12 +10,12 @@ You set error properties and message in xml and EasyForm will show error message
 ### Disclaimer
 This project is still with minimal features. I am very happy to accept any feature requests, bug reports. Please feel free to open Issues and I will try my best to prioritize it. I really like to ask for any additional feature ideas since a form varies for different product domains and I am bad at see all aspects of those use cases.
 
-##Installation
+## Installation
 ```
 compile 'com.emmasuzuki:easyform:1.0.1'
 ```
 
-##Example
+## Example
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <com.emmasuzuki.easyform.EasyForm xmlns:android="http://schemas.android.com/apk/res/android"
@@ -52,20 +52,20 @@ compile 'com.emmasuzuki:easyform:1.0.1'
 </com.emmasuzuki.easyform.EasyForm>
 ```
 
-##Custom Views
-###EasyForm
+## Custom Views
+### EasyForm
 EasyFrom is a ViewGroup which you wrap all form components inside. EasyForm is extending RelativeLayout, so you align any child views with just like you do for RelativeLayout.
 
-####Properties
+#### Properties
 submitButton: A submit button can be disable/enable based on field condition by setting view ID to submitButton property.  
 ```
 app:submitButton="@+id/submit_button"
 ```
 
-###EasyFormEditText
+### EasyFormEditText
 EasyFormEditText is a extension of EditText that will apply an error message by built-in `setError()` based on input and validation criteria.
 
-####Properties
+#### Properties
 errorMessage: An error message to show when a validation criteria does not match.
 ```
 app:errorMessage="This field is required"
@@ -115,12 +115,12 @@ app:maxChars="10"
 
 You can also set these properties in java.
 
-###EasyTextInputLayout
+### EasyTextInputLayout
 EasyTextInputLayout extends TextInputLayout. Similar to EasyFormEditText, this applies an error message by built-in `setError()`. EasyTextInputLayout adds EditText automatically, so unlike you do with TextInputLayout, you do not have to add EditText as a child. 
 
 All properties from EasyFormEditText can be applied for EasyTextInputLayout and additionally there are a few more that you can set.
 
-####Properties
+#### Properties
 android:inputType: EasyTextInputLayout bypass android's inputType to EditText. 
 ```
 android:inputType="number"
@@ -138,10 +138,10 @@ app:textColor="@color/blue"
 
 More example: <a href="https://github.com/emmasuzuki/EasyForm/tree/master/sample">Sample</a>
 
-##Feature Request, Bug Report
+## Feature Request, Bug Report
 I am very happy to hear all of these. To keep this project going, please file an issue for any requests. <a href="https://github.com/emmasuzuki/EasyForm/issues">File Issue</a>
 
-##License
+## License
 Copyright 2016 Emma Suzuki <emma11suzuki@gmail.com>
 
 Licensed under the Apache License, Version 2.0 (the "License");
