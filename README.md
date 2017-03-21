@@ -12,7 +12,7 @@ This project is still with minimal features. I am very happy to accept any featu
 
 ## Installation
 ```
-compile 'com.emmasuzuki:easyform:1.0.1'
+compile 'com.emmasuzuki:easyform:1.1.0'
 ```
 
 ## Example
@@ -22,7 +22,8 @@ compile 'com.emmasuzuki:easyform:1.0.1'
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:submitButton="@+id/submit_button">
+    app:submitButton="@+id/submit_button"
+    app:showErrorOn="unfocus">
 
     <com.emmasuzuki.easyform.EasyTextInputLayout
         android:id="@+id/empty_check_input"
@@ -60,6 +61,10 @@ EasyFrom is a ViewGroup which you wrap all form components inside. EasyForm is e
 submitButton: A submit button can be disable/enable based on field condition by setting view ID to submitButton property.  
 ```
 app:submitButton="@+id/submit_button"
+```
+showErrorOn: unfocus/change. A field is validated and error will be displayed on unfocus of the field or on every keystroke.
+```
+app:showErrorOn="unfocus"
 ```
 
 ### EasyFormEditText
