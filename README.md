@@ -62,10 +62,18 @@ submitButton: A submit button can be disable/enable based on field condition by 
 ```
 app:submitButton="@+id/submit_button"
 ```
-showErrorOn: unfocus/change. A field is validated and error will be displayed on unfocus of the field or on every keystroke.
+showErrorOn: unfocus/change (default: change). A field is validated and error will be displayed on unfocus of the field or on every keystroke. 
 ```
 app:showErrorOn="unfocus"
 ```
+NOTE: If showErrorOn is set to "unfocus", submitButton will be enabled when user correctly filled all fields except the last one, so that make sure to call `easyForm.validate();` on submitButton click in your application.
+Check out [LongFormFragment](!https://github.com/emmasuzuki/EasyForm/blob/master/sample/src/main/java/com/emmasuzuki/easyformsample/LongFormFragment.java)
+ for the usage.
+
+#### APIs
+`void validate()`: Validate all fields if the fields meet a criteria or not.
+
+`boolean isValid()`: Return true if all fields have valid values.
 
 ### EasyFormEditText
 EasyFormEditText is a extension of EditText that will apply an error message by built-in `setError()` based on input and validation criteria.
