@@ -3,20 +3,18 @@ apply plugin: 'com.android.library'
 ext {
     PUBLISH_GROUP_ID = 'com.emmasuzuki'
     PUBLISH_ARTIFACT_ID = 'easyform'
-    PUBLISH_VERSION = '1.0.1'
+    PUBLISH_VERSION = '1.1.0'
 }
 
 android {
     compileSdkVersion 25
     buildToolsVersion '25.0.0'
-    defaultPublishConfig 'release'
-    publishNonDefault true
 
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 2
-        versionName "1.0.1"
+        versionName "1.1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
