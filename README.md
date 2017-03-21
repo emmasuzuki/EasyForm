@@ -67,7 +67,7 @@ showErrorOn: unfocus/change (default: change). A field is validated and error wi
 app:showErrorOn="unfocus"
 ```
 NOTE: If showErrorOn is set to "unfocus", submitButton will be enabled when user correctly filled all fields except the last one, so that make sure to call `easyForm.validate();` on submitButton click in your application.
-Check out [LongFormFragment](!https://github.com/emmasuzuki/EasyForm/blob/master/sample/src/main/java/com/emmasuzuki/easyformsample/LongFormFragment.java)
+Check out [LongFormFragment](https://github.com/emmasuzuki/EasyForm/blob/master/sample/src/main/java/com/emmasuzuki/easyformsample/LongFormFragment.java)
  for the usage.
 
 #### APIs
