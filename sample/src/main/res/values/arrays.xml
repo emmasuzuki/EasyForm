@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <string-array name="auto_complete_array">
+        <item>cat</item>
+        <item>catering</item>
+        <item>car</item>
+        <item>dog</item>
+        <item>dog sitter</item>
+        <item>elephant</item>
+    </string-array>
+
+</resources>

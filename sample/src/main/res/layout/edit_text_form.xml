@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="12dp"
-    app:submitButton="@+id/submit_button">
+    app:submitButton="@+id/submit_button"
+    app:showErrorOn="unfocus">
 
     <com.emmasuzuki.easyform.EasyFormEditText
         android:id="@+id/empty_check_edittext"
@@ -30,11 +31,21 @@
         android:layout_below="@id/email_check_edittext"
         android:hint="@string/no_check" />
 
+    <com.emmasuzuki.easyform.EasyAutoCompleteTextView
+        android:id="@+id/auto_complete_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/no_check_edittext"
+        android:hint="@string/auto_complete"
+        app:errorType="empty"
+        app:errorMessage="@string/error_message_empty"
+        app:items="@array/auto_complete_array" />
+
     <Button
         android:id="@id/submit_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/no_check_edittext"
+        android:layout_below="@id/auto_complete_textview"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:background="@color/colorAccent"

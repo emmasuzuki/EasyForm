@@ -11,6 +11,7 @@
     <string name="digit_check">Digit check</string>
     <string name="value_check">Value check</string>
     <string name="no_check">No check</string>
+    <string name="auto_complete">Auto Complete. Type ca.</string>
 
     <string name="error_message_empty">Please fill this field</string>
     <string name="error_message_email">Please input valid email</string>
