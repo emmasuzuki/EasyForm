@@ -21,7 +21,6 @@ import android.content.res.TypedArray;
 import android.support.v7.widget.AppCompatEditText;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.EditText;
 
 import static com.emmasuzuki.easyform.FormValidator.INVALID_VALUE;
 
@@ -68,13 +67,12 @@ public class EasyFormEditText extends AppCompatEditText implements View.OnFocusC
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (!hasFocus) {
-            EditText editText = (EditText) v;
-            validate(editText.getText());
+            validate();
         }
     }
 
-    void validate(CharSequence str) {
-        boolean isValid = validator.isValid(str);
+    void validate() {
+        boolean isValid = validator.isValid(getText().toString());
         setError(isValid ? null : errorMessage);
 
         if (isValid) {

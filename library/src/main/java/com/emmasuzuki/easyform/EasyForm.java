@@ -109,7 +109,10 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener {
                 View view = formInputs.getView();
                 if (view instanceof EasyFormEditText) {
                     EasyFormEditText editText = (EasyFormEditText) view;
-                    editText.validate(editText.getText());
+                    editText.validate();
+                } else if (view instanceof EasyAutoCompleteTextView) {
+                    EasyAutoCompleteTextView autoCompleteTextView = (EasyAutoCompleteTextView) view;
+                    autoCompleteTextView.validate();
                 } else {
                     EasyTextInputLayout textInputLayout = (EasyTextInputLayout) view;
                     textInputLayout.validate();

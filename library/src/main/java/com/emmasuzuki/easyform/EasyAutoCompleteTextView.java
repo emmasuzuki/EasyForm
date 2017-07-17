@@ -22,7 +22,6 @@ import android.support.v7.widget.AppCompatAutoCompleteTextView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 
 import java.util.Arrays;
 import java.util.List;
@@ -74,15 +73,15 @@ public class EasyAutoCompleteTextView extends AppCompatAutoCompleteTextView impl
     protected void onFinishInflate() {
         super.onFinishInflate();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, items);
-        setAdapter(adapter);
+        if (items != null) {
+            setItems(items);
+        }
     }
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
         if (!hasFocus) {
-            EditText editText = (EditText) v;
-            validate(editText.getText());
+            validate();
         }
     }
 
@@ -138,8 +137,8 @@ public class EasyAutoCompleteTextView extends AppCompatAutoCompleteTextView impl
         textWatcher.setEasyFormTextListener(easyFormEditTextListener);
     }
 
-    void validate(CharSequence str) {
-        boolean isValid = validator.isValid(str);
+    void validate() {
+        boolean isValid = validator.isValid(getText().toString());
         setError(isValid ? null : errorMessage);
 
         if (isValid) {
@@ -181,6 +180,4 @@ public class EasyAutoCompleteTextView extends AppCompatAutoCompleteTextView impl
             typedArray.recycle();
         }
     }
-
-
 }
