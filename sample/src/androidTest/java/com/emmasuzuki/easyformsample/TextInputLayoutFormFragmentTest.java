@@ -17,6 +17,7 @@
 package com.emmasuzuki.easyformsample;
 
 import android.app.Activity;
+import android.support.annotation.StringRes;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.espresso.ViewInteraction;
 import android.view.View;
@@ -61,33 +62,21 @@ public class TextInputLayoutFormFragmentTest {
     }
 
     public void testEmptyCheckField(String str, boolean valid) {
-        emptyCheckEditText.perform(clearText(), typeText(str), closeSoftKeyboard());
-
-        if (valid) {
-            onView(emptyCheckInputMatcher).check(matches(hasNoErrorText()));
-        } else {
-            onView(emptyCheckInputMatcher).check(matches(hasErrorText(activity.getString(R.string.error_message_empty))));
-        }
+        emptyCheckEditText.perform(click(), clearText(), typeText(str));
+        digitCheckEditText.perform(click(), closeSoftKeyboard());
+        checkError(emptyCheckInputMatcher, R.string.error_message_empty, valid);
     }
 
     public void testDigitCheckField(String str, boolean valid) {
-        digitCheckEditText.perform(clearText(), typeText(str), closeSoftKeyboard());
-
-        if (valid) {
-            onView(digitCheckInputMatcher).check(matches(hasNoErrorText()));
-        } else {
-            onView(digitCheckInputMatcher).check(matches(hasErrorText(activity.getString(R.string.error_message_digit))));
-        }
+        digitCheckEditText.perform(click(), clearText(), typeText(str));
+        emptyCheckEditText.perform(click(), closeSoftKeyboard());
+        checkError(digitCheckInputMatcher, R.string.error_message_digit, valid);
     }
 
     public void testValueCheckField(String str, boolean valid) {
-        valueCheckEditText.perform(clearText(), typeText(str), closeSoftKeyboard());
-
-        if (valid) {
-            onView(valueCheckInputMatcher).check(matches(hasNoErrorText()));
-        } else {
-            onView(valueCheckInputMatcher).check(matches(hasErrorText(activity.getString(R.string.error_message_value))));
-        }
+        valueCheckEditText.perform(click(), clearText(), typeText(str));
+        emptyCheckEditText.perform(click(), closeSoftKeyboard());
+        checkError(valueCheckInputMatcher, R.string.error_message_value, valid);
     }
 
     public void testSubmitButton(String emptyCheckStr, String digitCheckStr, String valueCheckStr, boolean valid) {
@@ -99,6 +88,14 @@ public class TextInputLayoutFormFragmentTest {
             submitButton.check(matches(isEnabled()));
         } else {
             submitButton.check(matches(not(isEnabled())));
+        }
+    }
+
+    private void checkError(Matcher<View> matcher, @StringRes int errorMessageId, boolean valid) {
+        if (valid) {
+            onView(matcher).check(matches(hasNoErrorText()));
+        } else {
+            onView(matcher).check(matches(hasErrorText(activity.getString(errorMessageId))));
         }
     }
 }

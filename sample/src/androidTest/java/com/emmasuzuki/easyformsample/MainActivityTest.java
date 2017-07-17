@@ -65,23 +65,38 @@ public class MainActivityTest {
     }
 
     @Test
+    public void testEditTextFormFragment_AutoCompleteField_Success() {
+        editTextFormFragmentTest.testAutoCompleteField("test", true);
+    }
+
+    @Test
+    public void testEditTextFormFragment_AutoCompleteField_Empty() {
+        editTextFormFragmentTest.testAutoCompleteField("", false);
+    }
+
+    @Test
     public void testEditTextFormFragment_SubmitButton_AllFieldFilled() {
-        editTextFormFragmentTest.testSubmitButton("test", "test@test.com", "test", true);
+        editTextFormFragmentTest.testSubmitButton("test", "test@test.com", "test", "test", true);
     }
 
     @Test
     public void testEditTextFormFragment_SubmitButton_AllRequiredFilled() {
-        editTextFormFragmentTest.testSubmitButton("test", "test@test.com", "", true);
+        editTextFormFragmentTest.testSubmitButton("test", "test@test.com", "", "test", true);
     }
 
     @Test
     public void testEditTextFormFragment_SubmitButton_NoTextOnEmptyField() {
-        editTextFormFragmentTest.testSubmitButton("", "test@test.com", "", false);
+        editTextFormFragmentTest.testSubmitButton("", "test@test.com", "", "test", false);
     }
 
     @Test
     public void testEditTextFormFragment_SubmitButton_InvalidEmail() {
-        editTextFormFragmentTest.testSubmitButton("test", "test@te", "", false);
+        editTextFormFragmentTest.testSubmitButton("test", "test@te", "", "test", false);
+    }
+
+    @Test
+    public void testEditTextFormFragment_SubmitButton_NoTextOnAutoCompleteField() {
+        editTextFormFragmentTest.testSubmitButton("test", "test@test.com", "", "", false);
     }
 
     @Test
