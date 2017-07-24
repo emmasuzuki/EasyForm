@@ -110,6 +110,7 @@ public class EasyAutoCompleteTextView extends AppCompatAutoCompleteTextView impl
     }
 
     public void setItems(String[] items) {
+        this.items = Arrays.asList(items);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, items);
         setAdapter(adapter);
     }
