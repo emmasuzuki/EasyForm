@@ -11,8 +11,9 @@ You set error properties and message in xml and EasyForm will show error message
 This project is still with minimal features. I am very happy to accept any feature requests, bug reports. Please feel free to open Issues and I will try my best to prioritize it. I really like to ask for any additional feature ideas since a form varies for different product domains and I am bad at see all aspects of those use cases.
 
 ## Installation
+Install via gradle.
 ```
-compile 'com.emmasuzuki:easyform:1.0.1'
+compile 'com.emmasuzuki:easyform:1.1.0'
 ```
 
 ## Example
@@ -22,7 +23,8 @@ compile 'com.emmasuzuki:easyform:1.0.1'
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:submitButton="@+id/submit_button">
+    app:submitButton="@+id/submit_button"
+    app:showErrorOn="unfocus">
 
     <com.emmasuzuki.easyform.EasyTextInputLayout
         android:id="@+id/empty_check_input"
@@ -61,6 +63,18 @@ submitButton: A submit button can be disable/enable based on field condition by 
 ```
 app:submitButton="@+id/submit_button"
 ```
+showErrorOn: unfocus/change (default: change). A field is validated and error will be displayed on unfocus of the field or on every keystroke. 
+```
+app:showErrorOn="unfocus"
+```
+NOTE: If showErrorOn is set to "unfocus", submitButton will be enabled when user correctly filled all fields except the last one, so that make sure to call `easyForm.validate();` on submitButton click in your application.
+Check out [LongFormFragment](https://github.com/emmasuzuki/EasyForm/blob/master/sample/src/main/java/com/emmasuzuki/easyformsample/LongFormFragment.java)
+ for the usage.
+
+#### APIs
+`void validate()`: Validate all fields if the fields meet a criteria or not.
+
+`boolean isValid()`: Return true if all fields have valid values.
 
 ### EasyFormEditText
 EasyFormEditText is a extension of EditText that will apply an error message by built-in `setError()` based on input and validation criteria.
