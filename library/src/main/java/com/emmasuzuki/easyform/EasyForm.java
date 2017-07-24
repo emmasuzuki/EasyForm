@@ -110,7 +110,10 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener {
                 View view = formInputs.getView();
                 if (view instanceof EasyFormEditText) {
                     EasyFormEditText editText = (EasyFormEditText) view;
-                    editText.validate(editText.getText());
+                    editText.validate();
+                } else if (view instanceof EasyAutoCompleteTextView) {
+                    EasyAutoCompleteTextView autoCompleteTextView = (EasyAutoCompleteTextView) view;
+                    autoCompleteTextView.validate();
                 } else {
                     EasyTextInputLayout textInputLayout = (EasyTextInputLayout) view;
                     textInputLayout.validate();
@@ -150,6 +153,13 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener {
                     easyFormEditText.setEasyFormEditTextListener(this);
                     easyFormEditText.setShowErrorOn(showErrorOn);
                     fieldCheckList.put(easyFormEditText.getId(), new FormInputs(easyFormEditText, false));
+                }
+            } else if (view instanceof EasyAutoCompleteTextView) {
+                EasyAutoCompleteTextView easyAutoCompleteTextView = (EasyAutoCompleteTextView) view;
+                if (easyAutoCompleteTextView.getErrorType() != ErrorType.NONE) {
+                    easyAutoCompleteTextView.setEasyFormEditTextListener(this);
+                    easyAutoCompleteTextView.setShowErrorOn(showErrorOn);
+                    fieldCheckList.put(easyAutoCompleteTextView.getId(), new FormInputs(easyAutoCompleteTextView, false));
                 }
             }
         }

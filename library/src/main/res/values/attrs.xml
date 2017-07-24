@@ -25,4 +25,13 @@
         <attr name="textSize" format="dimension" />
         <attr name="textColor" format="color|reference" />
     </declare-styleable>
+
+    <declare-styleable name="EasyAutoCompleteTextView">
+        <attr name="errorType" />
+        <attr name="errorMessage" />
+        <attr name="regexPattern" />
+        <attr name="minChars" />
+        <attr name="maxChars" />
+        <attr name="items" format="reference" />
+    </declare-styleable>
 </resources>

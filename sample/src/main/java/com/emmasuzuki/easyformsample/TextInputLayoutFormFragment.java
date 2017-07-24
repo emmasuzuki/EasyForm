@@ -18,15 +18,35 @@ package com.emmasuzuki.easyformsample;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.emmasuzuki.easyform.EasyForm;
+
+import butterknife.Bind;
+import butterknife.OnClick;
+
 public class TextInputLayoutFormFragment extends Fragment {
+
+    @Bind(R.id.form)
+    EasyForm easyForm;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.text_layout_input_form, container, false);
+    }
+
+    @OnClick(R.id.submit_button)
+    public void submitButtonClicked() {
+        // Make sure to call easyForm.validate() when using showErrorOn = UNFOCUS
+        easyForm.validate();
+
+        if (easyForm.isValid()) {
+            Log.e(getClass().getSimpleName(), "All values are valid. Ready to submit.");
+        } else {
+            Log.e(getClass().getSimpleName(), "The last input was invalid");
+        }
     }
 }
