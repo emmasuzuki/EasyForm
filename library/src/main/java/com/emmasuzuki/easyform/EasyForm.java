@@ -70,6 +70,7 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener {
 
         submitButton = (Button) findViewById(submitButtonId);
 
+        fieldCheckList = new SparseArray<>(getChildCount());
         initializeFieldCheckList(this);
 
         enableSubmitButton(isValid());
@@ -130,8 +131,6 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener {
     }
 
     private void initializeFieldCheckList(ViewGroup viewGroup) {
-        fieldCheckList = new SparseArray<>(getChildCount());
-
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
             View view = viewGroup.getChildAt(i);
             if (view instanceof EasyTextInputLayout) {
