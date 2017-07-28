@@ -100,16 +100,16 @@ android:<br>inputType | | Bypass android's inputType to internal EditText. | | &
 
 
 #### API
-Function | Description | EasyForm<br>EditText | EasyText<br>InputLayout | EasyAuto<br>CompleteTextView
+Function | Description | EasyForm<br>EditText | EasyText<br>InputLayout | EasyAuto<br>Complete<br>TextView
 -------- | ----------- | -------------------- | ----------------------- | ----------------------------
-setErrorMessage | Set an error message to show when a validation criteria does not match. | &#10003; | &#10003; | &#10003;
-setErrorType | Set errorType (empty, pattern, value, chars). | &#10003; | &#10003; | &#10003;
-setRegexPattern |  Set a regex to match against an input. If an input does not match with the regex, an error message will be displayed. Setting this automatically set errorType to pattern. | &#10003; | &#10003; | &#10003;
-setMinValue | Set a minimum value (inclusive). Setting this automatically set errorType to value. | &#10003; | &#10003; |
-setMaxValue | Set a maximum value (inclusive). You can conbine with minValue. Setting this automatically set errorType to value. | &#10003; | &#10003; | 
-setMinChars | Set a minimum char length (inclusive). Setting this automatically set errorType to chars. | &#10003; | &#10003; | &#10003;
-setMaxChars | Set a maximum char length (inclusive). You can conbine with minChars. Setting this automatically set errorType to chars. | &#10003; | &#10003; | &#10003;
-setItems | Set list of suggestions for auto complete. | | | &#10003;
+void setErrorMessage(String) | Set an error message to show when a validation criteria does not match. | &#10003; | &#10003; | &#10003;
+void setErrorType(ErrorType) | Set errorType (EMPTY, PATTERN, VALUE, CHARS). | &#10003; | &#10003; | &#10003;
+void setRegexPattern(String) |  Set a regex to match against an input. If an input does not match with the regex, an error message will be displayed. Setting this automatically set errorType to pattern. | &#10003; | &#10003; | &#10003;
+void setMinValue(int) | Set a minimum value (inclusive). Setting this automatically set errorType to value. | &#10003; | &#10003; |
+void setMaxValue(int) | Set a maximum value (inclusive). You can conbine with minValue. Setting this automatically set errorType to value. | &#10003; | &#10003; | 
+void setMinChars(int) | Set a minimum char length (inclusive). Setting this automatically set errorType to chars. | &#10003; | &#10003; | &#10003;
+void setMaxChars(int) | Set a maximum char length (inclusive). You can conbine with minChars. Setting this automatically set errorType to chars. | &#10003; | &#10003; | &#10003;
+void setItems(String [])<br>void setItems(List<String>) | Set list of suggestions for auto complete. | | | &#10003;
 
 ### Examples 
 Check out <a href="https://github.com/emmasuzuki/EasyForm/tree/master/sample">Sample</a> folder.
