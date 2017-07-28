@@ -109,9 +109,9 @@ void setMinValue(int) | Set a minimum value (inclusive). Setting this automatica
 void setMaxValue(int) | Set a maximum value (inclusive). You can conbine with minValue. Setting this automatically set errorType to value. | &#10003; | &#10003; | 
 void setMinChars(int) | Set a minimum char length (inclusive). Setting this automatically set errorType to chars. | &#10003; | &#10003; | &#10003;
 void setMaxChars(int) | Set a maximum char length (inclusive). You can conbine with minChars. Setting this automatically set errorType to chars. | &#10003; | &#10003; | &#10003;
-void setItems(String [])<br>void setItems(List<String>) | Set list of suggestions for auto complete. | | | &#10003;
+void setItems(String [])<br>void setItems(List\<String\>) | Set list of suggestions for auto complete. | | | &#10003;
 
-### Examples 
+### More Examples 
 Check out <a href="https://github.com/emmasuzuki/EasyForm/tree/master/sample">Sample</a> folder.
 
 ## Feature Request, Bug Report
