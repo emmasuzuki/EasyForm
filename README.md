@@ -77,80 +77,44 @@ Check out [LongFormFragment](https://github.com/emmasuzuki/EasyForm/blob/master/
 `boolean isValid()`: Return true if all fields have valid values.
 
 ### EasyFormEditText
-EasyFormEditText is a extension of EditText that will apply an error message by built-in `setError()` based on input and validation criteria.
-
-#### Properties
-errorMessage: An error message to show when a validation criteria does not match.
-```
-app:errorMessage="This field is required"
-```
-
-errorType: Set empty to make a field required.
-```
-app:errorType="empty"
-```
-
-regexPattern: Set a regex to match against an input. If an input does not match with the regex, an error message will be displayed.
-
-ex) Allow only digits.
-```
-app:regexPattern="[0-9]+"
-```
-
-minValue: Set a minimum value (inclusive).
-
-ex) Allow value >= 100
-```
-app:minValue="100"
-```
-
-maxValue: Set a maximum value (inclusive). You can conbine with minValue.
-
-ex) Allow -100 <= value <= 100
-```
-app:minValue="-100"
-app:maxValue="100"
-```
-
-minChars: Set a minimum char length (inclusive).
-
-ex) Allow input with minimum length of 5.
-```
-app:minChars="5"
-```
-
-maxChars: Set a maximum char length (inclusive). You can conbine with minChars.
-
-ex) Allow input with a length between 5 to 10.
-```
-app:minChars="5"
-app:maxChars="10"
-```
-
-You can also set these properties in java.
+EasyFormEditText extends EditText that will apply an error message by built-in `setError()` based on input and validation criteria.
 
 ### EasyTextInputLayout
-EasyTextInputLayout extends TextInputLayout. Similar to EasyFormEditText, this applies an error message by built-in `setError()`. EasyTextInputLayout adds EditText automatically, so unlike you do with TextInputLayout, you do not have to add EditText as a child. 
+EasyTextInputLayout extends TextInputLayout. Similar to EasyFormEditText, this applies an error message by built-in `setError()`. EasyTextInputLayout adds EditText automatically, so unlike you do with TextInputLayout, you do not have to add EditText as a child.  
 
-All properties from EasyFormEditText can be applied for EasyTextInputLayout and additionally there are a few more that you can set.
+### EasyAutoCompleteTextView
+EasyAutoCompleteTextView extends AutoCompleteTextView. By passing `items`, auto complete values will be displayed using default simple drop down view. Similar to EasyFormEditText, this also has the form validation feature and as EasyFormEditText,  it applies an error message by built-in `setError()`. 
 
 #### Properties
-android:inputType: EasyTextInputLayout bypass android's inputType to EditText. 
-```
-android:inputType="number"
-```
+Attributes | Description | EasyForm<br>EditText | EasyText<br>InputLayout | EasyAuto<br>CompleteTextView
+---------- | ----------- | -------------------- | ----------------------- | ----------------------------
+errorMessage | Set an error message to show when a validation criteria does not match. | &#10003; | &#10003; | &#10003;
+errorType | Set errorType (empty, pattern, value, chars). | &#10003; | &#10003; | &#10003; (Only empty, pattern, chars)
+regexPattern |  Set a regex to match against an input. If an input does not match with the regex, an error message will be displayed. Setting this automatically set errorType to pattern. | &#10003; | &#10003; | &#10003;
+minValue | Set a minimum value (inclusive). Setting this automatically set errorType to value. | &#10003; | &#10003; |
+maxValue | Set a maximum value (inclusive). You can conbine with minValue. Setting this automatically set errorType to value. | &#10003; | &#10003; |
+minChars | Set a minimum char length (inclusive). Setting this automatically set errorType to chars. | &#10003; | &#10003; | &#10003;
+maxChars | Set a maximum char length (inclusive). You can conbine with minChars. Setting this automatically set errorType to chars. | &#10003; | &#10003; | &#10003;
+items | Set list of suggestions for auto complete. | | | &#10003;
+textSize | Set a textSize for an internal EditText. | | &#10003; |
+textColor | Set a textColor for an internal EditText. | | &#10003; | 
+android:inputType | Bypass android's inputType to internal EditText. | | &#10003; |
 
-textSize: Set a textSize for EditText.
-```
-app:textSize="12sp"
-```
 
-textColor: Set a textColor for EditText.
-```
-app:textColor="@color/blue"
-```
+#### API
+Function | Description | EasyForm<br>EditText | EasyText<br>InputLayout | EasyAuto<br>CompleteTextView
+-------- | ----------- | -------------------- | ----------------------- | ----------------------------
+setErrorMessage | Set an error message to show when a validation criteria does not match. | &#10003; | &#10003; | &#10003;
+setErrorType | Set errorType (empty, pattern, value, chars). | &#10003; | &#10003; | &#10003;
+setRegexPattern |  Set a regex to match against an input. If an input does not match with the regex, an error message will be displayed. Setting this automatically set errorType to pattern. | &#10003; | &#10003; | &#10003;
+setMinValue | Set a minimum value (inclusive). Setting this automatically set errorType to value. | &#10003; | &#10003; |
+setMaxValue | Set a maximum value (inclusive). You can conbine with minValue. Setting this automatically set errorType to value. | &#10003; | &#10003; | 
+setMinChars | Set a minimum char length (inclusive). Setting this automatically set errorType to chars. | &#10003; | &#10003; | &#10003;
+setMaxChars | Set a maximum char length (inclusive). You can conbine with minChars. Setting this automatically set errorType to chars. | &#10003; | &#10003; | &#10003;
+setItems | Set list of suggestions for auto complete. | | | &#10003;
 
-More example: <a href="https://github.com/emmasuzuki/EasyForm/tree/master/sample">Sample</a>
+### Examples 
+Check out <a href="https://github.com/emmasuzuki/EasyForm/tree/master/sample">Sample</a> folder.
 
 ## Feature Request, Bug Report
 I am very happy to hear all of these. To keep this project going, please file an issue for any requests. <a href="https://github.com/emmasuzuki/EasyForm/issues">File Issue</a>
