@@ -13,7 +13,7 @@ This project is still with minimal features. I am very happy to accept any featu
 ## Installation
 Install via gradle.
 ```
-compile 'com.emmasuzuki:easyform:1.1.0'
+compile 'com.emmasuzuki:easyform:1.2.0'
 ```
 
 ## Example
@@ -59,22 +59,20 @@ compile 'com.emmasuzuki:easyform:1.1.0'
 EasyFrom is a ViewGroup which you wrap all form components inside. EasyForm is extending RelativeLayout, so you align any child views with just like you do for RelativeLayout.
 
 #### Properties
-submitButton: A submit button can be disable/enable based on field condition by setting view ID to submitButton property.  
-```
-app:submitButton="@+id/submit_button"
-```
-showErrorOn: unfocus/change (default: change). A field is validated and error will be displayed on unfocus of the field or on every keystroke. 
-```
-app:showErrorOn="unfocus"
-```
-NOTE: If showErrorOn is set to "unfocus", submitButton will be enabled when user correctly filled all fields except the last one, so that make sure to call `easyForm.validate();` on submitButton click in your application.
-Check out [LongFormFragment](https://github.com/emmasuzuki/EasyForm/blob/master/sample/src/main/java/com/emmasuzuki/easyformsample/LongFormFragment.java)
- for the usage.
+Attributes | Type | Description
+---------- | ---- | -----------
+submitButton | reference | A submit button can be disable/enable based on field condition by setting view ID to submitButton property.  
+showErrorOn | enum (unfocus/change) | A field is validated and error will be displayed on unfocus of the field or on every keystroke. default: change
+
+> NOTE: If showErrorOn is set to "unfocus", submitButton will be enabled when user correctly filled all fields except the last > one, so that make sure to call `easyForm.validate();` on submitButton click in your application.
+> Check out [LongFormFragment] (https://github.com/emmasuzuki/EasyForm/blob/master/sample/src/main/java/com/emmasuzuki/easyformsample/LongFormFragment.java)
+> for the usage.
 
 #### APIs
-`void validate()`: Validate all fields if the fields meet a criteria or not.
-
-`boolean isValid()`: Return true if all fields have valid values.
+Function | Description
+---------- | -----------
+void validate() | Validate all fields if the fields meet a criteria or not.
+boolean isValid() | Return true if all fields have valid values.
 
 ### EasyFormEditText
 EasyFormEditText extends EditText that will apply an error message by built-in `setError()` based on input and validation criteria.
@@ -86,19 +84,19 @@ EasyTextInputLayout extends TextInputLayout. Similar to EasyFormEditText, this a
 EasyAutoCompleteTextView extends AutoCompleteTextView. By passing `items`, auto complete values will be displayed using default simple drop down view. Similar to EasyFormEditText, this also has the form validation feature and as EasyFormEditText,  it applies an error message by built-in `setError()`. 
 
 #### Properties
-Attributes | Description | EasyForm<br>EditText | EasyText<br>InputLayout | EasyAuto<br>CompleteTextView
----------- | ----------- | -------------------- | ----------------------- | ----------------------------
-errorMessage | Set an error message to show when a validation criteria does not match. | &#10003; | &#10003; | &#10003;
-errorType | Set errorType (empty, pattern, value, chars). | &#10003; | &#10003; | &#10003; (Only empty, pattern, chars)
-regexPattern |  Set a regex to match against an input. If an input does not match with the regex, an error message will be displayed. Setting this automatically set errorType to pattern. | &#10003; | &#10003; | &#10003;
-minValue | Set a minimum value (inclusive). Setting this automatically set errorType to value. | &#10003; | &#10003; |
-maxValue | Set a maximum value (inclusive). You can conbine with minValue. Setting this automatically set errorType to value. | &#10003; | &#10003; |
-minChars | Set a minimum char length (inclusive). Setting this automatically set errorType to chars. | &#10003; | &#10003; | &#10003;
-maxChars | Set a maximum char length (inclusive). You can conbine with minChars. Setting this automatically set errorType to chars. | &#10003; | &#10003; | &#10003;
-items | Set list of suggestions for auto complete. | | | &#10003;
-textSize | Set a textSize for an internal EditText. | | &#10003; |
-textColor | Set a textColor for an internal EditText. | | &#10003; | 
-android:inputType | Bypass android's inputType to internal EditText. | | &#10003; |
+Attributes | Type | Description | EasyForm<br>EditText | EasyText<br>InputLayout | EasyAuto<br>Complete<br>TextView
+---------- | ---- | ----------- | -------------------- | ----------------------- | ----------------------------
+errorMessage | string,<br>referene | Set an error message to show when a validation criteria does not match. | &#10003; | &#10003; | &#10003;
+errorType | enum (empty, pattern,<br> value, chars). | Set errorType. | &#10003; | &#10003; | &#10003; (Only empty, pattern, chars)
+regexPattern | string,<br>reference | Set a regex to match against an input. If an input does not match with the regex, an error message will be displayed. Setting this automatically set errorType to pattern. | &#10003; | &#10003; | &#10003;
+minValue | float | Set a minimum value (inclusive). Setting this automatically set errorType to value. | &#10003; | &#10003; |
+maxValue | float | Set a maximum value (inclusive). You can conbine with minValue. Setting this automatically set errorType to value. | &#10003; | &#10003; |
+minChars | integer | Set a minimum char length (inclusive). Setting this automatically set errorType to chars. | &#10003; | &#10003; | &#10003;
+maxChars | integer | Set a maximum char length (inclusive). You can conbine with minChars. Setting this automatically set errorType to chars. | &#10003; | &#10003; | &#10003;
+items | reference | Set list of suggestions for auto complete. | | | &#10003;
+textSize | dimension | Set a textSize for an internal EditText. | | &#10003; |
+textColor | color,<br> reference | Set a textColor for an internal EditText. | | &#10003; | 
+android:<br>inputType | | Bypass android's inputType to internal EditText. | | &#10003; |
 
 
 #### API
