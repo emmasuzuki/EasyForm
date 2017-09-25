@@ -73,7 +73,7 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener {
         fieldCheckList = new SparseArray<>(getChildCount());
         initializeFieldCheckList(this);
 
-        enableSubmitButton(isValid());
+        enableSubmitButton((fieldCheckList.size() < 2 && showErrorOn == ShowErrorOn.UNFOCUS) || isValid());
     }
 
     @Override
@@ -187,7 +187,7 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener {
             }
         }
 
-        return filled == fieldCheckList.size() - 1;
+        return filled >= fieldCheckList.size() - 1;
     }
 
     private void enableSubmitButton(boolean enable) {
