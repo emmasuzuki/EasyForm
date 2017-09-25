@@ -64,8 +64,8 @@ Attributes | Type | Description
 submitButton | reference | A submit button can be disable/enable based on field condition by setting view ID to submitButton property.  
 showErrorOn | enum (unfocus/change) | A field is validated and error will be displayed on unfocus of the field or on every keystroke. default: change
 
-> NOTE: If showErrorOn is set to "unfocus", submitButton will be enabled when user correctly filled all fields except the last > one, so that make sure to call `easyForm.validate();` on submitButton click in your application.
-> Check out [LongFormFragment] (https://github.com/emmasuzuki/EasyForm/blob/master/sample/src/main/java/com/emmasuzuki/easyformsample/LongFormFragment.java)
+> NOTE: If showErrorOn is set to "unfocus", submitButton will be enabled when user correctly filled all fields except the last one, so make sure to call `easyForm.validate();` on submitButton click in your application.
+> Check out [LongFormFragment](https://github.com/emmasuzuki/EasyForm/blob/master/sample/src/main/java/com/emmasuzuki/easyformsample/LongFormFragment.java)
 > for the usage.
 
 #### APIs
