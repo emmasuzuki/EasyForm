@@ -25,17 +25,32 @@ import android.view.ViewGroup;
 
 import com.emmasuzuki.easyform.EasyForm;
 
-import butterknife.Bind;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class TextInputLayoutFormFragment extends Fragment {
 
-    @Bind(R.id.form)
+    @BindView(R.id.form)
     EasyForm easyForm;
+
+    private Unbinder unbinder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.text_layout_input_form, container, false);
+        View view = inflater.inflate(R.layout.text_layout_input_form, container, false);
+
+        unbinder = ButterKnife.bind(this, view);
+
+        return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        unbinder.unbind();
     }
 
     @OnClick(R.id.submit_button)

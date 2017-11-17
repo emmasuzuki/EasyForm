@@ -27,7 +27,7 @@ import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 
 import static android.support.test.espresso.Espresso.onView;
-import static android.support.test.espresso.core.deps.guava.base.Preconditions.checkNotNull;
+import static android.support.test.espresso.core.internal.deps.guava.base.Preconditions.checkNotNull;
 import static android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom;
 import static android.support.test.espresso.matcher.ViewMatchers.isDescendantOfA;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;

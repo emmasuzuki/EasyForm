@@ -27,23 +27,26 @@ import android.view.ViewGroup;
 import com.emmasuzuki.easyform.EasyForm;
 import com.emmasuzuki.easyform.EasyFormEditText;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class EditTextFormFragment extends Fragment {
 
-    @Bind(R.id.email_check_edittext)
+    @BindView(R.id.email_check_edittext)
     EasyFormEditText emailEditText;
 
-    @Bind(R.id.form)
+    @BindView(R.id.form)
     EasyForm easyForm;
+
+    private Unbinder unbinder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.edit_text_form, container, false);
 
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         return view;
     }
@@ -53,6 +56,13 @@ public class EditTextFormFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         emailEditText.setRegexPattern(Patterns.EMAIL_ADDRESS.pattern());
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        unbinder.unbind();
     }
 
     @OnClick(R.id.submit_button)

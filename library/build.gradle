@@ -7,14 +7,15 @@ ext {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
+    publishNonDefault true
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 25
-        versionCode 2
-        versionName "1.1.0"
+        targetSdkVersion 26
+        versionCode 3
+        versionName "1.2.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -38,8 +39,8 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:25.1.1'
-    compile 'com.android.support:design:25.1.1'
+    compile 'com.android.support:appcompat-v7:26.1.0'
+    compile 'com.android.support:design:26.1.0'
 
     testCompile 'junit:junit:4.12'
     testCompile "org.powermock:powermock-module-junit4:1.6.4"

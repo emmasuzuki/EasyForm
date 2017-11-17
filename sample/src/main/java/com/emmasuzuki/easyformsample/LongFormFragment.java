@@ -26,25 +26,35 @@ import android.widget.Button;
 
 import com.emmasuzuki.easyform.EasyForm;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 
 public class LongFormFragment extends Fragment {
 
-    @Bind(R.id.form)
+    @BindView(R.id.form)
     EasyForm easyForm;
 
-    @Bind(R.id.submit_button)
+    @BindView(R.id.submit_button)
     Button submitButton;
+
+    private Unbinder unbinder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.long_form, container, false);
 
-        ButterKnife.bind(this, view);
+        unbinder = ButterKnife.bind(this, view);
 
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        unbinder.unbind();
     }
 
     @OnClick(R.id.submit_button)

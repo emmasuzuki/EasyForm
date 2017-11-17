@@ -108,10 +108,10 @@ public class LongFormFragmentTest {
 
     public void testSubmitButton_LastField_Valid() {
         // Input everything except employeeId
-        firstNameEditText.perform(clearText(), typeText("first name"));
-        lastNameEditText.perform(clearText(), typeText("last name"));
-        accountEditText.perform(clearText(), typeText("account"));
-        passwordEditText.perform(clearText(), typeText("password"));
+        firstNameEditText.perform(clearText(), typeText("first name"), closeSoftKeyboard());
+        lastNameEditText.perform(clearText(), typeText("last name"), closeSoftKeyboard());
+        accountEditText.perform(clearText(), typeText("account"), closeSoftKeyboard());
+        passwordEditText.perform(clearText(), typeText("password"), closeSoftKeyboard());
         confirmPasswordEditText.perform(clearText(), typeText("password"), closeSoftKeyboard());
         submitButton.check(matches(not(isEnabled())));
 
@@ -127,10 +127,10 @@ public class LongFormFragmentTest {
 
     public void testSubmitButton_LastField_Invalid() {
         // Input everything except employeeId
-        firstNameEditText.perform(clearText(), typeText("first name"));
-        lastNameEditText.perform(clearText(), typeText("last name"));
-        accountEditText.perform(clearText(), typeText("account"));
-        passwordEditText.perform(clearText(), typeText("password"));
+        firstNameEditText.perform(clearText(), typeText("first name"), closeSoftKeyboard());
+        lastNameEditText.perform(clearText(), typeText("last name"), closeSoftKeyboard());
+        accountEditText.perform(clearText(), typeText("account"), closeSoftKeyboard());
+        passwordEditText.perform(clearText(), typeText("password"), closeSoftKeyboard());
         confirmPasswordEditText.perform(clearText(), typeText("password"), closeSoftKeyboard());
         submitButton.check(matches(not(isEnabled())));
 
