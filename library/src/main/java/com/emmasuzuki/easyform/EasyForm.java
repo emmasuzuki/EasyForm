@@ -101,23 +101,21 @@ public class EasyForm extends RelativeLayout implements EasyFormTextListener {
     }
 
 
+    // For unfocus case, validate on button click because button will be enabled
+    // before the last field becomes valid.
     public void validate() {
-        // For unfocus case, validate on button click because button will be enabled
-        // before the last field becomes valid.
-        if (showErrorOn == ShowErrorOn.UNFOCUS) {
-            for (int i = 0; i < fieldCheckList.size(); i++) {
-                FormInputs formInputs = fieldCheckList.get(fieldCheckList.keyAt(i));
-                View view = formInputs.getView();
-                if (view instanceof EasyFormEditText) {
-                    EasyFormEditText editText = (EasyFormEditText) view;
-                    editText.validate();
-                } else if (view instanceof EasyAutoCompleteTextView) {
-                    EasyAutoCompleteTextView autoCompleteTextView = (EasyAutoCompleteTextView) view;
-                    autoCompleteTextView.validate();
-                } else {
-                    EasyTextInputLayout textInputLayout = (EasyTextInputLayout) view;
-                    textInputLayout.validate();
-                }
+        for (int i = 0; i < fieldCheckList.size(); i++) {
+            FormInputs formInputs = fieldCheckList.get(fieldCheckList.keyAt(i));
+            View view = formInputs.getView();
+            if (view instanceof EasyFormEditText) {
+                EasyFormEditText editText = (EasyFormEditText) view;
+                editText.validate();
+            } else if (view instanceof EasyAutoCompleteTextView) {
+                EasyAutoCompleteTextView autoCompleteTextView = (EasyAutoCompleteTextView) view;
+                autoCompleteTextView.validate();
+            } else {
+                EasyTextInputLayout textInputLayout = (EasyTextInputLayout) view;
+                textInputLayout.validate();
             }
         }
     }
