@@ -13,7 +13,7 @@ This project is still with minimal features. I am very happy to accept any featu
 ## Installation
 Install via gradle.
 ```
-compile 'com.emmasuzuki:easyform:1.2.0'
+compile 'com.emmasuzuki:easyform:1.2.1@aar'
 ```
 
 ## Example

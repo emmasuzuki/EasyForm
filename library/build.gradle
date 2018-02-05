@@ -3,13 +3,13 @@ apply plugin: 'com.android.library'
 ext {
     PUBLISH_GROUP_ID = 'com.emmasuzuki'
     PUBLISH_ARTIFACT_ID = 'easyform'
-    PUBLISH_VERSION = '1.2.0'
+    PUBLISH_VERSION = '1.2.1'
 }
 
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
-    publishNonDefault true
+    publishNonDefault false
 
     defaultConfig {
         minSdkVersion 16

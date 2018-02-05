@@ -26,7 +26,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:design:26.1.0'
     compile 'com.jakewharton:butterknife:8.8.1'
-    compile 'com.emmasuzuki:easyform:1.2.0'
+    compile 'com.emmasuzuki:easyform:1.2.1@aar'
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
