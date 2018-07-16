@@ -7,13 +7,12 @@ ext {
 }
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
-    publishNonDefault false
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 3
         versionName "1.2.0"
 
@@ -39,14 +38,14 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:26.1.0'
-    compile 'com.android.support:design:26.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
 
-    testCompile 'junit:junit:4.12'
-    testCompile "org.powermock:powermock-module-junit4:1.6.4"
-    testCompile "org.powermock:powermock-module-junit4-rule:1.6.4"
-    testCompile "org.powermock:powermock-api-mockito:1.6.4"
-    testCompile "org.powermock:powermock-classloading-xstream:1.6.4"
+    testImplementation 'junit:junit:4.12'
+    testImplementation "org.powermock:powermock-module-junit4:1.6.4"
+    testImplementation "org.powermock:powermock-module-junit4-rule:1.6.4"
+    testImplementation "org.powermock:powermock-api-mockito:1.6.4"
+    testImplementation "org.powermock:powermock-classloading-xstream:1.6.4"
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
