@@ -19,19 +19,22 @@ package com.emmasuzuki.easyform;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v7.widget.AppCompatEditText;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import static com.emmasuzuki.easyform.FormValidator.INVALID_VALUE;
 
-public class EasyFormEditText extends AppCompatEditText implements View.OnFocusChangeListener {
+public class EasyFormEditText extends AppCompatEditText implements View.OnFocusChangeListener, EasyFormTextListener {
 
     private FormValidator validator;
-    private EasyFormTextListener easyFormTextListener;
+    private EasyFormErrorTextListener easyFormErrorTextListener;
 
     private String errorMessage;
 
-    private EasyFormTextWatcher textWatcher = new EasyFormTextWatcher(this) {
+    private EasyFormErrorTextWatcher errorTextWatcher = new EasyFormErrorTextWatcher(this) {
 
         @Override
         protected void renderError() {
@@ -71,14 +74,22 @@ public class EasyFormEditText extends AppCompatEditText implements View.OnFocusC
         }
     }
 
+    @Override
+    public void formatted(String formattedString, int cursorPos) {
+        setText(formattedString);
+        if (cursorPos <= formattedString.length()) {
+            setSelection(cursorPos);
+        }
+    }
+
     void validate() {
         boolean isValid = validator.isValid(getText().toString());
         setError(isValid ? null : errorMessage);
 
         if (isValid) {
-            easyFormTextListener.onFilled(this);
+            easyFormErrorTextListener.onFilled(this);
         } else {
-            easyFormTextListener.onError(this);
+            easyFormErrorTextListener.onError(this);
         }
     }
 
@@ -115,20 +126,18 @@ public class EasyFormEditText extends AppCompatEditText implements View.OnFocusC
     }
 
     void setShowErrorOn(ShowErrorOn showErrorOn) {
-        if (validator.getErrorType() != ErrorType.NONE) {
-            if (showErrorOn == ShowErrorOn.CHANGE) {
-                addTextChangedListener(textWatcher);
-                setOnFocusChangeListener(null);
-            } else {
-                removeTextChangedListener(textWatcher);
-                setOnFocusChangeListener(this);
-            }
+        if (showErrorOn == ShowErrorOn.CHANGE) {
+            addTextChangedListener(errorTextWatcher);
+            setOnFocusChangeListener(null);
+        } else {
+            removeTextChangedListener(errorTextWatcher);
+            setOnFocusChangeListener(this);
         }
     }
 
-    void setEasyFormEditTextListener(EasyFormTextListener easyFormEditTextListener) {
-        this.easyFormTextListener = easyFormEditTextListener;
-        textWatcher.setEasyFormTextListener(easyFormEditTextListener);
+    void setEasyFormEditTextListener(EasyFormErrorTextListener easyFormEditTextListener) {
+        this.easyFormErrorTextListener = easyFormEditTextListener;
+        errorTextWatcher.setEasyFormErrorTextListener(easyFormEditTextListener);
     }
 
     private void setPropertyFromAttributes(AttributeSet attrs) {
@@ -143,6 +152,15 @@ public class EasyFormEditText extends AppCompatEditText implements View.OnFocusC
             float maxValue = typedArray.getFloat(R.styleable.EasyFormEditText_maxValue, INVALID_VALUE);
             int minChars = typedArray.getInt(R.styleable.EasyFormEditText_minChars, INVALID_VALUE);
             int maxChars = typedArray.getInt(R.styleable.EasyFormEditText_maxChars, INVALID_VALUE);
+            int formType = typedArray.getInt(R.styleable.EasyFormEditText_type, -1);
+            EasyFormType easyFormType = EasyFormType.valueOf(formType);
+            if (easyFormType == EasyFormType.CREDIT_CARD) {
+                EasyFormTextWatcher watcher = new EasyFormTextWatcher(easyFormType);
+                watcher.setListener(this);
+                addTextChangedListener(watcher);
+                setFilters(new InputFilter[]{new InputFilter.LengthFilter(19)});
+                setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+            }
 
             if (errorMessage == null) {
                 errorMessage = "Error";
@@ -150,7 +168,7 @@ public class EasyFormEditText extends AppCompatEditText implements View.OnFocusC
 
             validator = new FormValidator(errorType, regexPattern, minValue, maxValue, minChars, maxChars);
 
-            textWatcher.setValidator(validator);
+            errorTextWatcher.setValidator(validator);
 
             typedArray.recycle();
         }

@@ -15,7 +15,33 @@
 
 package com.emmasuzuki.easyform;
 
-public interface EasyFormTextListener {
+public enum EasyFormType {
 
-    void formatted(String formattedString, int cursorPos);
+    PHONE_NUMBER,
+    CREDIT_CARD,
+    NONE;
+
+    public static EasyFormType valueOf(int value) {
+        for (EasyFormType type : EasyFormType.values()) {
+            if (value == type.ordinal()) {
+                return type;
+            }
+        }
+
+        return NONE;
+    }
+
+    @Override
+    public String toString() {
+        switch (this) {
+            case PHONE_NUMBER:
+                return "Phone Number";
+
+            case CREDIT_CARD:
+                return "Credit Card";
+
+            default:
+                return "None";
+        }
+    }
 }

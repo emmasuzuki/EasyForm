@@ -34,14 +34,14 @@ public class EasyTextInputLayout extends TextInputLayout implements View.OnFocus
 
     private EditText easyFormEditText;
     private FormValidator validator;
-    private EasyFormTextListener easyFormTextListener;
+    private EasyFormErrorTextListener easyFormErrorTextListener;
 
     private int editTextInputType;
     private float editTextTextSize;
     private int editTextColor;
     private String errorMessage;
 
-    private EasyFormTextWatcher textWatcher = new EasyFormTextWatcher(this) {
+    private EasyFormErrorTextWatcher textWatcher = new EasyFormErrorTextWatcher(this) {
 
         @Override
         protected void renderError() {
@@ -89,9 +89,9 @@ public class EasyTextInputLayout extends TextInputLayout implements View.OnFocus
         setErrorEnabled(!isValid);
 
         if (isValid) {
-            easyFormTextListener.onFilled(this);
+            easyFormErrorTextListener.onFilled(this);
         } else {
-            easyFormTextListener.onError(this);
+            easyFormErrorTextListener.onError(this);
         }
     }
 
@@ -141,9 +141,9 @@ public class EasyTextInputLayout extends TextInputLayout implements View.OnFocus
         }
     }
 
-    void setEasyFormEditTextListener(EasyFormTextListener easyFormEditTextListener) {
-        this.easyFormTextListener = easyFormEditTextListener;
-        textWatcher.setEasyFormTextListener(easyFormEditTextListener);
+    void setEasyFormEditTextListener(EasyFormErrorTextListener easyFormEditTextListener) {
+        this.easyFormErrorTextListener = easyFormEditTextListener;
+        textWatcher.setEasyFormErrorTextListener(easyFormEditTextListener);
     }
 
     @Override

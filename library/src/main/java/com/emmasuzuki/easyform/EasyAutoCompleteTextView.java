@@ -31,12 +31,12 @@ import static com.emmasuzuki.easyform.FormValidator.INVALID_VALUE;
 public class EasyAutoCompleteTextView extends AppCompatAutoCompleteTextView implements View.OnFocusChangeListener {
 
     private FormValidator validator;
-    private EasyFormTextListener easyFormTextListener;
+    private EasyFormErrorTextListener easyFormErrorTextListener;
 
     private List<String> items;
     private String errorMessage;
 
-    private EasyFormTextWatcher textWatcher = new EasyFormTextWatcher(this) {
+    private EasyFormErrorTextWatcher textWatcher = new EasyFormErrorTextWatcher(this) {
 
         @Override
         protected void renderError() {
@@ -133,9 +133,9 @@ public class EasyAutoCompleteTextView extends AppCompatAutoCompleteTextView impl
         }
     }
 
-    void setEasyFormEditTextListener(EasyFormTextListener easyFormEditTextListener) {
-        this.easyFormTextListener = easyFormEditTextListener;
-        textWatcher.setEasyFormTextListener(easyFormEditTextListener);
+    void setEasyFormEditTextListener(EasyFormErrorTextListener easyFormEditTextListener) {
+        this.easyFormErrorTextListener = easyFormEditTextListener;
+        textWatcher.setEasyFormErrorTextListener(easyFormEditTextListener);
     }
 
     void validate() {
@@ -143,9 +143,9 @@ public class EasyAutoCompleteTextView extends AppCompatAutoCompleteTextView impl
         setError(isValid ? null : errorMessage);
 
         if (isValid) {
-            easyFormTextListener.onFilled(this);
+            easyFormErrorTextListener.onFilled(this);
         } else {
-            easyFormTextListener.onError(this);
+            easyFormErrorTextListener.onError(this);
         }
     }
 

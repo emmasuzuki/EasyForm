@@ -15,6 +15,10 @@
             <enum name="value" value="2" />
             <enum name="chars" value="3" />
         </attr>
+        <attr name="type" format="enum">
+            <enum name="phoneNumber" value="0" />
+            <enum name="creditCard" value="1" />
+        </attr>
         <attr name="errorMessage" format="string|reference" />
         <attr name="regexPattern" format="string|reference" />
         <attr name="minValue" format="float" />
@@ -27,7 +31,7 @@
     </declare-styleable>
 
     <declare-styleable name="EasyAutoCompleteTextView">
-        <attr name="errorType" />
+        <attr name="errorType"/>
         <attr name="errorMessage" />
         <attr name="regexPattern" />
         <attr name="minChars" />
